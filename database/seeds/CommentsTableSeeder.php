@@ -16,10 +16,10 @@ class CommentsTableSeeder extends Seeder
     public function run()
     {
         $faker = Factory::create();
-        $users = collect(User::where('id', '>', 2)->modelKeys()->get());
+        $users = collect(User::where('id', '>', 2)->get()->modelKeys());
         $posts = collect(Post::whereStatus(1)->wherePostType('post')->whereCommentAble(1)->get());
 
-        for($i = 0; $i < 10; $i++) {
+        for($i = 0; $i < 1000; $i++) {
             Comment::create([
                 'name' => $faker->name,
                 'email' => $faker->email,

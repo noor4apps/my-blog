@@ -5,10 +5,11 @@ namespace App\Models;
 use Cviebrock\EloquentSluggable\Sluggable;
 use Illuminate\Database\Eloquent\Model;
 
-class Post extends Model
+class Page extends Model
 {
     use Sluggable;
 
+    protected $table = 'posts';
     protected $guarded = [];
 
     public function sluggable()
@@ -22,21 +23,16 @@ class Post extends Model
 
     public function category()
     {
-        return $this->belongsTo(Category::class);
+        return $this->belongsTo(Category::class, 'category_id', 'id');
     }
 
     public function user()
     {
-        return $this->belongsTo(User::class);
-    }
-
-    public function comments()
-    {
-        return $this->hasMany(Comment::class);
+        return $this->belongsTo(User::class, 'user_id', 'id');
     }
 
     public function media()
     {
-        return $this->hasMany(PostMedia::class);
+        return $this->hasMany(PostMedia::class, 'post_id', 'id');
     }
 }

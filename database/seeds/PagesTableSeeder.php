@@ -1,6 +1,6 @@
 <?php
 
-use App\Models\Post;
+use App\Models\Page;
 use Faker\Factory;
 use Illuminate\Database\Seeder;
 
@@ -15,7 +15,7 @@ class PagesTableSeeder extends Seeder
     {
         $faker = Factory::create();
 
-        Post::create([
+        Page::create([
             'title'         => 'About Us',
             'description'   => $faker->paragraph,
             'status'        => 1,
@@ -25,7 +25,7 @@ class PagesTableSeeder extends Seeder
             'category_id'   => 1
         ]);
 
-        Post::create([
+        Page::create([
             'title'         => 'Our Vision',
             'description'   => $faker->paragraph,
             'status'        => 1,

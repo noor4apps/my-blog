@@ -66,7 +66,7 @@ class PostsTableSeeder extends Seeder
          * @throws \InvalidArgumentException
          */
 
-        for($i = 0; $i < 10; $i++) {
+        for($i = 0; $i < 1000; $i++) {
             Post::create([
                 'title' => $faker->sentence(mt_rand(3, 6), true),
                 'description' => $faker->paragraph,
