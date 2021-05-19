@@ -27,5 +27,9 @@ is an open source PHP image handling and manipulation library.
 - [laravel collective](https://laravelcollective.com/docs/6.x/html)
 package HTML comes packed with an HTML and FORM generator allowing you to handle easy to manage forms in your blade files as well as intricate model binding to your forms.
 
+###4. cviebrock/eloquent-sluggable
+- [Eloquent-Sluggable](https://github.com/cviebrock/eloquent-sluggable)
+Easy creation of slugs for your Eloquent models in Laravel.
+
 
 
