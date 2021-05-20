@@ -2,21 +2,32 @@
 
 use Illuminate\Support\Facades\Route;
 
-/*
-|--------------------------------------------------------------------------
-| Web Routes
-|--------------------------------------------------------------------------
-|
-| Here is where you can register web routes for your application. These
-| routes are loaded by the RouteServiceProvider within a group which
-| contains the "web" middleware group. Now create something great!
-|
-*/
+
 
 Route::get('/', function () {
     return view('welcome');
 });
 
-Auth::routes();
+// Frontend Authentication Routes... source (\\my-blog\vendor\laravel\ui\src\AuthRouteMethods.php)
 
-Route::get('/home', 'HomeController@index')->name('home');
+// Login Routes...
+Route::get('/login',                        ['as' => 'show_login_form',          'uses' => 'Frontend\Auth\LoginController@showLoginForm']);
+Route::post('login',                        ['as' => 'login',                    'uses' => 'Frontend\Auth\LoginController@login']);
+// Logout Routes...
+Route::post('logout',                       ['as' => 'logout',                   'uses' => 'Frontend\Auth\LoginController@logout']);
+// Registration Routes...
+Route::get('register',                      ['as' => 'show_register_form',       'uses' => 'Frontend\Auth\RegisterController@showRegistrationForm']);
+Route::post('register',                     ['as' => 'register',                 'uses' => 'Frontend\Auth\RegisterController@register']);
+// Password Reset Routes...
+Route::get('password/reset',                ['as' => 'password.request',         'uses' => 'Frontend\Auth\ForgotPasswordController@showLinkRequestForm']);
+Route::post('password/email',               ['as' => 'password.email',           'uses' => 'Frontend\Auth\ForgotPasswordController@sendResetLinkEmail']);
+Route::get('password/reset/{token}',        ['as' => 'password.reset',           'uses' => 'Frontend\Auth\ResetPasswordController@showResetForm']);
+Route::post('password/reset',               ['as' => 'password.update',          'uses' => 'Frontend\Auth\ResetPasswordController@reset']);
+// Password Confirmation Routes...
+Route::get('password/confirm',              ['as' => 'password.confirm',         'uses' => 'Frontend\Auth\ConfirmPasswordController@showConfirmForm']);
+Route::post('password/confirm',             ['as' => 'password',                 'uses' => 'Frontend\Auth\ConfirmPasswordController@confirm']);
+// Email Verification Routes...
+Route::get('email/verify',                  ['as' => 'verification.notice',      'uses' => 'Frontend\Auth\VerificationController@show']);
+Route::get('/email/verify/{id}/{hash}',     ['as' => 'verification.verify',      'uses' => 'Frontend\Auth\VerificationController@verify']);
+Route::post('email/resend',                 ['as' => 'verification.resend',      'uses' => 'Frontend\Auth\VerificationController@resend']);
+
