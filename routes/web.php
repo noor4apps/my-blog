@@ -4,9 +4,8 @@ use Illuminate\Support\Facades\Route;
 
 
 
-Route::get('/', function () {
-    return view('welcome');
-});
+Route::get('/',                             ['as' => 'frontend.index',           'uses' => 'Frontend\IndexController@index']);
+
 
 // Frontend Authentication Routes... source (\\my-blog\vendor\laravel\ui\src\AuthRouteMethods.php)
 
@@ -31,3 +30,13 @@ Route::get('email/verify',                  ['as' => 'verification.notice',     
 Route::get('/email/verify/{id}/{hash}',     ['as' => 'verification.verify',      'uses' => 'Frontend\Auth\VerificationController@verify']);
 Route::post('email/resend',                 ['as' => 'verification.resend',      'uses' => 'Frontend\Auth\VerificationController@resend']);
 
+Route::group(['prefix' => 'admin'], function () {
+    // Backend Authentication Routes...
+    Route::get('/login',                    ['as' => 'admin.show_login_form',     'uses' => 'Backend\Auth\LoginController@showLoginForm']);
+    Route::post('login',                    ['as' => 'admin.login',               'uses' => 'Backend\Auth\LoginController@login']);
+    Route::post('logout',                   ['as' => 'admin.logout',              'uses' => 'Backend\Auth\LoginController@logout']);
+    Route::get('password/reset',            ['as' => 'admin.password.request',    'uses' => 'Backend\Auth\ForgotPasswordController@showLinkRequestForm']);
+    Route::post('password/email',           ['as' => 'admin.password.email',      'uses' => 'Backend\Auth\ForgotPasswordController@sendResetLinkEmail']);
+    Route::get('password/reset/{token}',    ['as' => 'admin.password.reset',      'uses' => 'Backend\Auth\ResetPasswordController@showResetForm']);
+    Route::post('password/reset',           ['as' => 'admin.password.update',     'uses' => 'Backend\Auth\ResetPasswordController@reset']);
+});
