@@ -3567,7 +3567,9 @@ h3.widget-title-modal {
     margin: 0 0 10px;
     color: #2e2e2e; }
 .blog-page .blog__post {
-  margin-top: 40px; }
+  /*margin-top: 40px;*/
+  margin-bottom: 40px;
+}
   .blog-page .blog__post .thumb {
     flex-basis: 50%; }
     .blog-page .blog__post .thumb a img {
@@ -3946,8 +3948,9 @@ h3.widget-title-modal {
   Breadcaump Styles
 ----------------------------*/
 .ht__bradcaump__area {
-  padding-bottom: 110px;
-  padding-top: 220px;
+  /*padding-bottom: 110px;*/
+  /*padding-top: 220px;*/
+  padding-top: 90px;
 }
 .bradcaump__inner .bradcaump-title {
   font-size: 24px;

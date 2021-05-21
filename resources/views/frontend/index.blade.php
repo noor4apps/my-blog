@@ -7,14 +7,14 @@
             <div class="row">
                 <div class="col-lg-9 col-12">
                     <div class="blog-page">
-                        <div class="page__header">
-                            <h2>Category Archives: HTML</h2>
-                        </div>
+{{--                        <div class="page__header">--}}
+{{--                            <h2>Category Archives: HTML</h2>--}}
+{{--                        </div>--}}
                         <!-- Start Single Post -->
                         <article class="blog__post d-flex flex-wrap">
                             <div class="thumb">
                                 <a href="blog-details.html">
-                                    <img src="images/blog/blog-3/1.jpg" alt="blog images">
+                                    <img src="{{ asset('frontend/images/blog/blog-3/1.jpg') }}" alt="blog images">
                                 </a>
                             </div>
                             <div class="content">
@@ -35,7 +35,7 @@
                         <article class="blog__post d-flex flex-wrap">
                             <div class="thumb">
                                 <a href="blog-details.html">
-                                    <img src="images/blog/blog-3/2.jpg" alt="blog images">
+                                    <img src="{{ asset('frontend/images/blog/blog-3/2.jpg') }}" alt="blog images">
                                 </a>
                             </div>
                             <div class="content">
@@ -56,7 +56,7 @@
                         <article class="blog__post d-flex flex-wrap">
                             <div class="thumb">
                                 <a href="blog-details.html">
-                                    <img src="images/blog/blog-3/3.jpg" alt="blog images">
+                                    <img src="{{ asset('frontend/images/blog/blog-3/3.jpg') }}" alt="blog images">
                                 </a>
                             </div>
                             <div class="content">
@@ -77,7 +77,7 @@
                         <article class="blog__post d-flex flex-wrap">
                             <div class="thumb">
                                 <a href="blog-details.html">
-                                    <img src="images/blog/blog-3/4.jpg" alt="blog images">
+                                    <img src="{{ asset('frontend/images/blog/blog-3/4.jpg') }}" alt="blog images">
                                 </a>
                             </div>
                             <div class="content">
@@ -98,7 +98,7 @@
                         <article class="blog__post d-flex flex-wrap">
                             <div class="thumb">
                                 <a href="blog-details.html">
-                                    <img src="images/blog/blog-3/5.jpg" alt="blog images">
+                                    <img src="{{ asset('frontend/images/blog/blog-3/5.jpg') }}" alt="blog images">
                                 </a>
                             </div>
                             <div class="content">
@@ -161,7 +161,7 @@
                                     <li>
                                         <div class="post-wrapper d-flex">
                                             <div class="thumb">
-                                                <a href="blog-details.html"><img src="images/blog/sm-img/1.jpg" alt="blog images"></a>
+                                                <a href="blog-details.html"><img src="{{ asset('frontend/images/blog/sm-img/1.jpg') }}" alt="blog images"></a>
                                             </div>
                                             <div class="content">
                                                 <h4><a href="blog-details.html">Blog image post</a></h4>
@@ -172,7 +172,7 @@
                                     <li>
                                         <div class="post-wrapper d-flex">
                                             <div class="thumb">
-                                                <a href="blog-details.html"><img src="images/blog/sm-img/2.jpg" alt="blog images"></a>
+                                                <a href="blog-details.html"><img src="{{ asset('frontend/images/blog/sm-img/2.jpg') }}" alt="blog images"></a>
                                             </div>
                                             <div class="content">
                                                 <h4><a href="blog-details.html">Post with Gallery</a></h4>
@@ -183,7 +183,7 @@
                                     <li>
                                         <div class="post-wrapper d-flex">
                                             <div class="thumb">
-                                                <a href="blog-details.html"><img src="images/blog/sm-img/3.jpg" alt="blog images"></a>
+                                                <a href="blog-details.html"><img src="{{ asset('frontend/images/blog/sm-img/3.jpg') }}" alt="blog images"></a>
                                             </div>
                                             <div class="content">
                                                 <h4><a href="blog-details.html">Post with Video</a></h4>
@@ -194,7 +194,7 @@
                                     <li>
                                         <div class="post-wrapper d-flex">
                                             <div class="thumb">
-                                                <a href="blog-details.html"><img src="images/blog/sm-img/4.jpg" alt="blog images"></a>
+                                                <a href="blog-details.html"><img src="{{ asset('frontend/images/blog/sm-img/4.jpg') }}" alt="blog images"></a>
                                             </div>
                                             <div class="content">
                                                 <h4><a href="blog-details.html">Maecenas ultricies</a></h4>
@@ -205,7 +205,7 @@
                                     <li>
                                         <div class="post-wrapper d-flex">
                                             <div class="thumb">
-                                                <a href="blog-details.html"><img src="images/blog/sm-img/5.jpg" alt="blog images"></a>
+                                                <a href="blog-details.html"><img src="{{ asset('frontend/images/blog/sm-img/5.jpg') }}" alt="blog images"></a>
                                             </div>
                                             <div class="content">
                                                 <h4><a href="blog-details.html">Blog image post</a></h4>
@@ -224,7 +224,7 @@
                                 <li>
                                     <div class="post-wrapper">
                                         <div class="thumb">
-                                            <img src="images/blog/comment/1.jpeg" alt="Comment images">
+                                            <img src="{{ asset('frontend/images/blog/comment/1.jpeg') }}" alt="Comment images">
                                         </div>
                                         <div class="content">
                                             <p>demo says:</p>
@@ -235,7 +235,7 @@
                                 <li>
                                     <div class="post-wrapper">
                                         <div class="thumb">
-                                            <img src="images/blog/comment/1.jpeg" alt="Comment images">
+                                            <img src="{{ asset('frontend/images/blog/comment/1.jpeg') }}" alt="Comment images">
                                         </div>
                                         <div class="content">
                                             <p>Admin says:</p>
@@ -246,7 +246,7 @@
                                 <li>
                                     <div class="post-wrapper">
                                         <div class="thumb">
-                                            <img src="images/blog/comment/1.jpeg" alt="Comment images">
+                                            <img src="{{ asset('frontend/images/blog/comment/1.jpeg') }}" alt="Comment images">
                                         </div>
                                         <div class="content">
                                             <p>Irin says:</p>
@@ -257,7 +257,7 @@
                                 <li>
                                     <div class="post-wrapper">
                                         <div class="thumb">
-                                            <img src="images/blog/comment/1.jpeg" alt="Comment images">
+                                            <img src="{{ asset('frontend/images/blog/comment/1.jpeg') }}" alt="Comment images">
                                         </div>
                                         <div class="content">
                                             <p>Boighor says:</p>
@@ -268,7 +268,7 @@
                                 <li>
                                     <div class="post-wrapper">
                                         <div class="thumb">
-                                            <img src="images/blog/comment/1.jpeg" alt="Comment images">
+                                            <img src="{{ asset('frontend/images/blog/comment/1.jpeg') }}" alt="Comment images">
                                         </div>
                                         <div class="content">
                                             <p>demo says:</p>

@@ -5,7 +5,7 @@
             <div class="col-md-4 col-sm-4 col-7 col-lg-2">
                 <div class="logo">
                     <a href="index.html">
-                        <img src="images/logo/logo.png" alt="logo images">
+                        <img src="{{ asset('frontend/images/logo/logo.png') }}" alt="logo images">
                     </a>
                 </div>
             </div>
@@ -144,7 +144,7 @@
                                     <div class="miniproduct">
                                         <div class="item01 d-flex">
                                             <div class="thumb">
-                                                <a href="product-details.html"><img src="images/product/sm-img/1.jpg" alt="product images"></a>
+                                                <a href="product-details.html"><img src="{{ asset('frontend/images/product/sm-img/1.jpg') }}" alt="product images"></a>
                                             </div>
                                             <div class="content">
                                                 <h6><a href="product-details.html">Voyage Yoga Bag</a></h6>
@@ -160,7 +160,7 @@
                                         </div>
                                         <div class="item01 d-flex mt--20">
                                             <div class="thumb">
-                                                <a href="product-details.html"><img src="images/product/sm-img/3.jpg" alt="product images"></a>
+                                                <a href="product-details.html"><img src="{{ asset('frontend/images/product/sm-img/3.jpg') }}" alt="product images"></a>
                                             </div>
                                             <div class="content">
                                                 <h6><a href="product-details.html">Impulse Duffle</a></h6>
@@ -176,7 +176,7 @@
                                         </div>
                                         <div class="item01 d-flex mt--20">
                                             <div class="thumb">
-                                                <a href="product-details.html"><img src="images/product/sm-img/2.jpg" alt="product images"></a>
+                                                <a href="product-details.html"><img src="{{ asset('frontend/images/product/sm-img/2.jpg') }}" alt="product images"></a>
                                             </div>
                                             <div class="content">
                                                 <h6><a href="product-details.html">Compete Track Tote</a></h6>
@@ -318,6 +318,27 @@
     </div>
 </header>
 <!-- //Header -->
+
+<!-- Start Search Popup -->
+<div class="box-search-content search_active block-bg close__top">
+    <form id="search_mini_form" class="minisearch" action="#">
+        <div class="field__search">
+            <input type="text" placeholder="Search entire store here...">
+            <div class="action">
+                <a href="#"><i class="zmdi zmdi-search"></i></a>
+            </div>
+        </div>
+    </form>
+    <div class="close__wrap">
+        <span>close</span>
+    </div>
+</div>
+<!-- End Search Popup -->
+
+<!-- Start Bradcaump area -->
+<div class="ht__bradcaump__area bg-image--4">
+</div>
+<!-- End Bradcaump area -->
 
 {{--
 <nav class="navbar navbar-expand-md navbar-light bg-white shadow-sm">
