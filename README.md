@@ -31,5 +31,20 @@ package HTML comes packed with an HTML and FORM generator allowing you to handle
 - [Eloquent-Sluggable](https://github.com/cviebrock/eloquent-sluggable)
 Easy creation of slugs for your Eloquent models in Laravel.
 
+##Themes
 
+###Frontend Theme
+- [Boighor – Free Books Library eCommerce Store](https://freethemescloud.com/item/boighor-free-books-library-ecommerce-store)
+ is a neat, clean and simple designed bookstore website template. This HTML5 template is perfect for your eCommerce project. It is powered with Bootstrap4. The fully responsive template Boighor looks great on all types of screens and devices. The cross-browser optimized Boighor – Bookshop Responsive Bootstrap 4 Temple is the best for the library, book publisher, book author, book writer, and book library. Try it now!
+- [Preview](https://preview.hasthemes.com/boighor-v3/index.html)
 
+Cross Browser Supported
+Well Commented
+W3C Validated Code
+Fully Responsive Design
+
+###Backend Theme
+
+- [SB Admin 2](https://startbootstrap.com/theme/sb-admin-2)
+A free Bootstrap 4 admin theme built with HTML/CSS and a modern development workflow environment ready to use to build your next dashboard or web application
+- [Preview](https://startbootstrap.com/previews/sb-admin-2)
