@@ -40,3 +40,6 @@ Route::group(['prefix' => 'admin'], function () {
     Route::get('password/reset/{token}',    ['as' => 'admin.password.reset',      'uses' => 'Backend\Auth\ResetPasswordController@showResetForm']);
     Route::post('password/reset',           ['as' => 'admin.password.update',     'uses' => 'Backend\Auth\ResetPasswordController@reset']);
 });
+
+Route::get('/{post}',                       ['as' => 'posts.show',               'uses' => 'Frontend\IndexController@post_show']);
+
