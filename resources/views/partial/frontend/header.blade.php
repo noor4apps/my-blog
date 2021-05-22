@@ -144,7 +144,7 @@
                                     <div class="miniproduct">
                                         <div class="item01 d-flex">
                                             <div class="thumb">
-                                                <a href="product-details.html"><img src="{{ asset('frontend/images/product/sm-img/1.jpg') }}" alt="product images"></a>
+                                                <a href="product-details.html"><img src="{{ asset('frontend/images/product/sm-img/default.jpg') }}" alt="product images"></a>
                                             </div>
                                             <div class="content">
                                                 <h6><a href="product-details.html">Voyage Yoga Bag</a></h6>
