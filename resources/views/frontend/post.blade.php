@@ -8,33 +8,52 @@
                 <div class="col-lg-9 col-12">
                     <div class="blog-details content">
                         <article class="blog-post-details">
-                            <div class="post-thumbnail">
-                                <img src="images/blog/big-img/1.jpg" alt="blog images">
-                            </div>
+                            @if($post->media->count() > 0)
+                                <div id="carouselIndicators" class="carousel slide" data-ride="carousel">
+                                    <ol class="carousel-indicators">
+                                        @foreach($post->media as $media)
+                                            <li data-target="#carouselIndicators" data-slide-to="{{ $loop->index }}" class="{{ $loop->index == 0 ? 'active' : ''}}"></li>
+                                        @endforeach
+                                    </ol>
+                                    <div class="carousel-inner">
+                                        @foreach($post->media as $media)
+                                            <div class="carousel-item {{ $loop->index == 0 ? 'active' : ''}}">
+                                                <img class="d-block w-100" src="{{ asset('assets/posts/' . $media->file_name) }}" alt="{{ $post->title }}">
+                                            </div>
+                                        @endforeach
+                                    </div>
+                                    @if($post->media->count() > 1)
+                                        <a class="carousel-control-prev" href="#carouselIndicators" role="button" data-slide="prev">
+                                            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                                            <span class="sr-only">Previous</span>
+                                        </a>
+                                        <a class="carousel-control-next" href="#carouselIndicators" role="button" data-slide="next">
+                                            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                                            <span class="sr-only">Next</span>
+                                        </a>
+                                    @endif
+                                </div>
+                            @endif
+{{--                            <div class="post-thumbnail">--}}
+{{--                                <img src="{{ asset('frontend/images/blog/big-img/1.jpg') }}" alt="blog images">--}}
+{{--                            </div>--}}
                             <div class="post_wrapper">
                                 <div class="post_header">
-                                    <h2>International activities of the Book</h2>
+                                    <h2>{{ $post->title }}</h2>
                                     <div class="blog-date-categori">
                                         <ul>
-                                            <li>June 27, 2018</li>
-                                            <li><a href="#" title="Posts by boighor" rel="author">boighor</a></li>
+                                            <li>{{ $post->created_at->format('M d, Y') }}</li>
+                                            <li><a href="#" title="Posts by {{ $post->user->name }}" rel="author">{{ $post->user->name }}</a></li>
                                         </ul>
                                     </div>
                                 </div>
                                 <div class="post_content">
-                                    <p>Donec vitae hendrerit arcu, sit amet faucibus nisl. Crastoup pretium arcu ex. Aenean posuere libero eu augue rhoncus. Praesent ornare tortor ac ante egestas hendrerit. Aliquam et metus pharetra, bibendum massa nec, fermentum odio. Nunc id leo ultrices, mollis ligula in, finibus tortor. Mauris eu dui ut lectus fermentum eleifend. Pellentesque faucibus sem ante, non malesuada odio varius nec. Suspendisse potenti. Proin consectetur aliquam odio nec fringilla. Sed interdum at justo in efficitur. Vivamus gravida volutpat sodales. Fusce ornare sit amet ligula condimentum sagittis.</p>
-
-                                    <blockquote>Lorem ipsum dolor sit amet, consecte adipisicing elit, sed do eiusmod tempor deo incididunt labo dolor magna aliqua. Ut enim ad minim veniam quis nostrud geolans work.</blockquote>
-
-                                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehendrit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.</p>
-
-                                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore of to magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehnderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia dser mollit anim id est laborum. Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo.</p>
-
+                                    <p>{!! $post->description !!}</p>
                                 </div>
                                 <ul class="blog_meta">
-                                    <li><a href="#">3 comments</a></li>
+                                    <li><a href="#">{{ $post->approved_comments->count() }} comment(s)</a></li>
                                     <li> / </li>
-                                    <li>Tags:<span>fashion</span> <span>t-shirt</span> <span>white</span></li>
+                                    <li>Category:<span>{{ $post->category->name }}</span></li>
                                 </ul>
                             </div>
                         </article>
@@ -44,7 +63,7 @@
                                 <li>
                                     <div class="wn__comment">
                                         <div class="thumb">
-                                            <img src="images/blog/comment/1.jpeg" alt="comment images">
+                                            <img src="{{ asset('frontend/images/blog/comment/1.jpeg') }}" alt="comment images">
                                         </div>
                                         <div class="content">
                                             <div class="comnt__author d-block d-sm-flex">
@@ -61,7 +80,7 @@
                                 <li class="comment_reply">
                                     <div class="wn__comment">
                                         <div class="thumb">
-                                            <img src="images/blog/comment/1.jpeg" alt="comment images">
+                                            <img src="{{ asset('frontend/images/blog/comment/1.jpeg') }}" alt="comment images">
                                         </div>
                                         <div class="content">
                                             <div class="comnt__author d-block d-sm-flex">
@@ -124,7 +143,7 @@
                                     <li>
                                         <div class="post-wrapper d-flex">
                                             <div class="thumb">
-                                                <a href="blog-details.html"><img src="images/blog/sm-img/1.jpg" alt="blog images"></a>
+                                                <a href="blog-details.html"><img src="{{ asset('frontend/images/blog/sm-img/1.jpg') }}" alt="blog images"></a>
                                             </div>
                                             <div class="content">
                                                 <h4><a href="blog-details.html">Blog image post</a></h4>
@@ -135,7 +154,7 @@
                                     <li>
                                         <div class="post-wrapper d-flex">
                                             <div class="thumb">
-                                                <a href="blog-details.html"><img src="images/blog/sm-img/2.jpg" alt="blog images"></a>
+                                                <a href="blog-details.html"><img src="{{ asset('frontend/images/blog/sm-img/2.jpg') }}" alt="blog images"></a>
                                             </div>
                                             <div class="content">
                                                 <h4><a href="blog-details.html">Post with Gallery</a></h4>
@@ -146,7 +165,7 @@
                                     <li>
                                         <div class="post-wrapper d-flex">
                                             <div class="thumb">
-                                                <a href="blog-details.html"><img src="images/blog/sm-img/3.jpg" alt="blog images"></a>
+                                                <a href="blog-details.html"><img src="{{ asset('frontend/images/blog/sm-img/3.jpg') }}" alt="blog images"></a>
                                             </div>
                                             <div class="content">
                                                 <h4><a href="blog-details.html">Post with Video</a></h4>
@@ -157,7 +176,7 @@
                                     <li>
                                         <div class="post-wrapper d-flex">
                                             <div class="thumb">
-                                                <a href="blog-details.html"><img src="images/blog/sm-img/4.jpg" alt="blog images"></a>
+                                                <a href="blog-details.html"><img src="{{ asset('frontend/images/blog/sm-img/4.jpg') }}" alt="blog images"></a>
                                             </div>
                                             <div class="content">
                                                 <h4><a href="blog-details.html">Maecenas ultricies</a></h4>
@@ -168,7 +187,7 @@
                                     <li>
                                         <div class="post-wrapper d-flex">
                                             <div class="thumb">
-                                                <a href="blog-details.html"><img src="images/blog/sm-img/5.jpg" alt="blog images"></a>
+                                                <a href="blog-details.html"><img src="{{ asset('frontend/images/blog/sm-img/5.jpg') }}" alt="blog images"></a>
                                             </div>
                                             <div class="content">
                                                 <h4><a href="blog-details.html">Blog image post</a></h4>
@@ -187,7 +206,7 @@
                                 <li>
                                     <div class="post-wrapper">
                                         <div class="thumb">
-                                            <img src="images/blog/comment/1.jpeg" alt="Comment images">
+                                            <img src="{{ asset('frontend/images/blog/comment/1.jpeg') }}" alt="Comment images">
                                         </div>
                                         <div class="content">
                                             <p>demo says:</p>
@@ -198,7 +217,7 @@
                                 <li>
                                     <div class="post-wrapper">
                                         <div class="thumb">
-                                            <img src="images/blog/comment/1.jpeg" alt="Comment images">
+                                            <img src="{{ asset('frontend/images/blog/comment/1.jpeg') }}" alt="Comment images">
                                         </div>
                                         <div class="content">
                                             <p>Admin says:</p>
@@ -209,7 +228,7 @@
                                 <li>
                                     <div class="post-wrapper">
                                         <div class="thumb">
-                                            <img src="images/blog/comment/1.jpeg" alt="Comment images">
+                                            <img src="{{ asset('frontend/images/blog/comment/1.jpeg') }}" alt="Comment images">
                                         </div>
                                         <div class="content">
                                             <p>Irin says:</p>
@@ -220,7 +239,7 @@
                                 <li>
                                     <div class="post-wrapper">
                                         <div class="thumb">
-                                            <img src="images/blog/comment/1.jpeg" alt="Comment images">
+                                            <img src="{{ asset('frontend/images/blog/comment/1.jpeg') }}" alt="Comment images">
                                         </div>
                                         <div class="content">
                                             <p>Boighor says:</p>
@@ -231,7 +250,7 @@
                                 <li>
                                     <div class="post-wrapper">
                                         <div class="thumb">
-                                            <img src="images/blog/comment/1.jpeg" alt="Comment images">
+                                            <img src="{{ asset('frontend/images/blog/comment/1.jpeg') }}" alt="Comment images">
                                         </div>
                                         <div class="content">
                                             <p>demo says:</p>

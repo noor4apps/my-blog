@@ -12,7 +12,7 @@
                         @forelse($posts as $post)
                         <article class="blog__post d-flex flex-wrap">
                             <div class="thumb">
-                                <a href="#blog-details.html">
+                                <a href="{{ route('posts.show', $post->slug) }}">
                                     @if($post->media->count() > 0)
                                         <img src="{{ asset('assets/posts/' . $post->media->first()->file_name) }}" alt="{{ $post->title }}">
                                     @else
@@ -21,7 +21,7 @@
                                 </a>
                             </div>
                             <div class="content">
-                                <h4><a href="#blog-details.html">{{ $post->title }}</a></h4>
+                                <h4><a href="{{ route('posts.show', $post->slug) }}">{{ $post->title }}</a></h4>
                                 <ul class="post__meta">
                                     <li>Posts by : <a href="#">{{ $post->user->name }}</a></li>
                                     <li class="post_separator">/</li>
@@ -29,7 +29,7 @@
                                 </ul>
                                 <p>{{ \Illuminate\Support\Str::limit($post->description, 145, ' ...') }}</p>
                                 <div class="blog__btn">
-                                    <a href="#blog-details.html">read more</a>
+                                    <a href="{{ route('posts.show', $post->slug) }}">read more</a>
                                 </div>
                             </div>
                         </article>
@@ -62,7 +62,7 @@
                                     <li>
                                         <div class="post-wrapper d-flex">
                                             <div class="thumb">
-                                                <a href="blog-details.html"><img src="{{ asset('frontend/images/blog/sm-img/default.jpg') }}" alt="blog images"></a>
+                                                <a href="blog-details.html"><img src="{{ asset('frontend/images/blog/sm-img/2.jpg') }}" alt="blog images"></a>
                                             </div>
                                             <div class="content">
                                                 <h4><a href="blog-details.html">Blog image post</a></h4>

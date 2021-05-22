@@ -29,13 +29,17 @@ class IndexController extends Controller
                 $query->orderBy('created_at', 'desc');
             }
         ]);
+
         $post = $post->whereHas('category', function ($query) {
                 $query->whereStatus(1);
             })
             ->whereHas('user', function ($query) {
                 $query->whereStatus(1);
-            })
-            ->wherePostType('post')->whereStatus(1)->first();
+            });
+
+        $post = $post->whereSlug($slug);
+
+        $post = $post->wherePostType('post')->whereStatus(1)->first();
 
         if($post) {
             return view('frontend.post', compact('post'));
