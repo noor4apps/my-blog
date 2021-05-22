@@ -42,4 +42,5 @@ Route::group(['prefix' => 'admin'], function () {
 });
 
 Route::get('/{post}',                       ['as' => 'posts.show',               'uses' => 'Frontend\IndexController@post_show']);
+Route::post('/{post}',                      ['as' => 'posts.add_comment',        'uses' => 'Frontend\IndexController@store_comment']);
 

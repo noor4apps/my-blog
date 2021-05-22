@@ -53,71 +53,59 @@
                                 <ul class="blog_meta">
                                     <li><a href="#">{{ $post->approved_comments->count() }} comment(s)</a></li>
                                     <li> / </li>
-                                    <li>Category:<span>{{ $post->category->name }}</span></li>
+                                    <li>Category: <span>{{ $post->category->name }}</span></li>
                                 </ul>
                             </div>
                         </article>
                         <div class="comments_area">
-                            <h3 class="comment__title">1 comment</h3>
+                            <h3 class="comment__title">{{ $post->approved_comments->count() }} comment(s)</h3>
                             <ul class="comment__list">
-                                <li>
-                                    <div class="wn__comment">
-                                        <div class="thumb">
-                                            <img src="{{ asset('frontend/images/blog/comment/1.jpeg') }}" alt="comment images">
-                                        </div>
-                                        <div class="content">
-                                            <div class="comnt__author d-block d-sm-flex">
-                                                <span><a href="#">admin</a> Post author</span>
-                                                <span>October 6, 2014 at 9:26 am</span>
-                                                <div class="reply__btn">
-                                                    <a href="#">Reply</a>
-                                                </div>
+                                @forelse($post->approved_comments as $comment)
+                                    <li>
+                                        <div class="wn__comment">
+                                            <div class="thumb">
+                                                <img src="{{ asset('frontend/images/blog/comment/1.jpeg') }}" alt="comment images">
                                             </div>
-                                            <p>Sed interdum at justo in efficitur. Vivamus gravida volutpat sodales. Fusce ornare sit</p>
-                                        </div>
-                                    </div>
-                                </li>
-                                <li class="comment_reply">
-                                    <div class="wn__comment">
-                                        <div class="thumb">
-                                            <img src="{{ asset('frontend/images/blog/comment/1.jpeg') }}" alt="comment images">
-                                        </div>
-                                        <div class="content">
-                                            <div class="comnt__author d-block d-sm-flex">
-                                                <span><a href="#">admin</a> Post author</span>
-                                                <span>October 6, 2014 at 9:26 am</span>
-                                                <div class="reply__btn">
-                                                    <a href="#">Reply</a>
+                                            <div class="content">
+                                                <div class="comnt__author d-block d-sm-flex">
+                                                    <span><a href="{{ $comment->url != '' ? $comment->url : '#' }}">{{ $comment->name }}</a></span>
+                                                    <span>{{ $comment->created_at->format('M d, Y h:i a') }}</span>
                                                 </div>
+                                                <p>{{ $comment->comment }}</p>
                                             </div>
-                                            <p>Sed interdum at justo in efficitur. Vivamus gravida volutpat sodales. Fusce ornare sit</p>
                                         </div>
-                                    </div>
-                                </li>
+                                    </li>
+                                @empty
+                                    <li>
+                                        <div class="content">
+                                            <p>Not comments found.</p>
+                                        </div>
+                                    </li>
+                                @endforelse
                             </ul>
                         </div>
                         <div class="comment_respond">
-                            <h3 class="reply_title">Leave a Reply <small><a href="#">Cancel reply</a></small></h3>
-                            <form class="comment__form" action="#">
+                            <h3 class="reply_title">Leave a Reply</h3>
+                            {{ Form::open(['route' => ['posts.add_comment', $post->slug], 'method' => 'post', 'class' => 'comment__form']) }}
                                 <p>Your email address will not be published.Required fields are marked </p>
                                 <div class="input__box">
-                                    <textarea name="comment" placeholder="Your comment here"></textarea>
+                                    {{ Form::textarea('comment', old('comment'), ['placeholder' => 'Your comment here']) }}
                                 </div>
                                 <div class="input__wrapper clearfix">
                                     <div class="input__box name one--third">
-                                        <input type="text" placeholder="name">
+                                        {{ Form::text('name', old('name'), ['placeholder' => 'Your name here']) }}
                                     </div>
                                     <div class="input__box email one--third">
-                                        <input type="email" placeholder="email">
+                                        {{ Form::email('email', old('email'), ['placeholder' => 'Your email here']) }}
                                     </div>
                                     <div class="input__box website one--third">
-                                        <input type="text" placeholder="website">
+                                        {{ Form::text('url', old('url'), ['placeholder' => 'Your website URL here']) }}
                                     </div>
                                 </div>
                                 <div class="submite__btn">
-                                    <a href="#">Post Comment</a>
+                                    {{ Form::submit('Post Comment', ['class' => 'btn btn-primary']) }}
                                 </div>
-                            </form>
+                            {{ Form::close() }}
                         </div>
                     </div>
                 </div>

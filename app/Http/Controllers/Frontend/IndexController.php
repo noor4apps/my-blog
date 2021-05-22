@@ -48,4 +48,9 @@ class IndexController extends Controller
         }
     }
 
+    public function store_comment(Request $requestm, $slug)
+    {
+        dd($requestm->all(), $slug);
+    }
+
 }
