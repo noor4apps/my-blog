@@ -64,7 +64,7 @@
                                     <li>
                                         <div class="wn__comment">
                                             <div class="thumb">
-                                                <img src="{{ asset('frontend/images/blog/comment/1.jpeg') }}" alt="comment images">
+                                                <img src="{{ get_gravatar($comment->email, 46) }}" alt="comment images">
                                             </div>
                                             <div class="content">
                                                 <div class="comnt__author d-block d-sm-flex">
@@ -87,19 +87,23 @@
                         <div class="comment_respond">
                             <h3 class="reply_title">Leave a Reply</h3>
                             {{ Form::open(['route' => ['posts.add_comment', $post->slug], 'method' => 'post', 'class' => 'comment__form']) }}
-                                <p>Your email address will not be published.Required fields are marked </p>
+                                <p>Your email address will not be published. Required fields are marked </p>
                                 <div class="input__box">
                                     {{ Form::textarea('comment', old('comment'), ['placeholder' => 'Your comment here']) }}
+                                    @error('comment')<span class="text-danger">{{ $message }}</span>@enderror
                                 </div>
                                 <div class="input__wrapper clearfix">
                                     <div class="input__box name one--third">
                                         {{ Form::text('name', old('name'), ['placeholder' => 'Your name here']) }}
+                                        @error('name')<span class="text-danger">{{ $message }}</span>@enderror
                                     </div>
                                     <div class="input__box email one--third">
                                         {{ Form::email('email', old('email'), ['placeholder' => 'Your email here']) }}
+                                        @error('email')<span class="text-danger">{{ $message }}</span>@enderror
                                     </div>
                                     <div class="input__box website one--third">
                                         {{ Form::text('url', old('url'), ['placeholder' => 'Your website URL here']) }}
+                                        @error('url')<span class="text-danger">{{ $message }}</span>@enderror
                                     </div>
                                 </div>
                                 <div class="submite__btn">
