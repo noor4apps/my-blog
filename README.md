@@ -31,6 +31,20 @@ package HTML comes packed with an HTML and FORM generator allowing you to handle
 - [Eloquent-Sluggable](https://github.com/cviebrock/eloquent-sluggable)
 Easy creation of slugs for your Eloquent models in Laravel.
 
+###5. nicolaslopezj/searchable
+- [Eloquent model search trait](https://github.com/nicolaslopezj/searchable)
+Searchable, a search trait for Laravel
+Searchable allows you to perform searches in a table giving priorities to each field for the table and it's relations.
+
+This is not optimized for big searches, but sometimes you just need to make it simple (Although it is not slow).
+
+##Avatar
+An "avatar" is an image that represents you online—a little picture that appears next to your name when you interact with websites.
+
+###Gravatar gravatar.com
+[gravatar.com](https://ar.gravatar.com/site/implement/images/php/)
+A Gravatar is a Globally Recognized Avatar. You upload an image and create your public profile just once, and then when you participate in any Gravatar-enabled site, your Gravatar image and public profile will automatically follow you there.
+
 ##Themes
 
 ###Frontend Theme

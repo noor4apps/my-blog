@@ -24,6 +24,27 @@ class IndexController extends Controller
         return view('frontend.index', compact('posts'));
     }
 
+    public function search(Request $request)
+    {
+        $keyword = isset($request->keyword) && $request->keyword != '' ? $request->keyword : null;
+
+        $posts = Post::with(['category', 'media', 'user'])
+            ->whereHas('category', function ($query) {
+                $query->whereStatus(1);
+            })
+            ->whereHas('user', function ($query) {
+                $query->whereStatus(1);
+            });
+
+        if($keyword != null) {
+            $posts = $posts->search($keyword, null, true);
+        }
+
+        $posts = $posts->wherePostType('post')->whereStatus(1)->orderBy('id', 'desc')->paginate(5);
+
+        return view('frontend.index', compact('posts'));
+    }
+
     public function post_show($slug)
     {
         $post = Post::with(['category', 'media', 'user',
@@ -115,7 +136,7 @@ class IndexController extends Controller
         $data['message'] = $request->message;
 
         Contact::create($data);
-        
+
         return redirect()->back()->with([
             'message' => 'Message send successfully.',
             'alert-type' => 'success'
