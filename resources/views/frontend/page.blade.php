@@ -8,21 +8,21 @@
                 <div class="col-lg-12 col-12">
                     <div class="blog-details content">
                         <article class="blog-post-details">
-                            @if($page->media->count() > 0)
+                            @if($post->media->count() > 0)
                                 <div id="carouselIndicators" class="carousel slide" data-ride="carousel">
                                     <ol class="carousel-indicators">
-                                        @foreach($page->media as $media)
+                                        @foreach($post->media as $media)
                                             <li data-target="#carouselIndicators" data-slide-to="{{ $loop->index }}" class="{{ $loop->index == 0 ? 'active' : ''}}"></li>
                                         @endforeach
                                     </ol>
                                     <div class="carousel-inner">
-                                        @foreach($page->media as $media)
+                                        @foreach($post->media as $media)
                                             <div class="carousel-item {{ $loop->index == 0 ? 'active' : ''}}">
-                                                <img class="d-block w-100" src="{{ asset('assets/posts/' . $media->file_name) }}" alt="{{ $page->title }}">
+                                                <img class="d-block w-100" src="{{ asset('assets/posts/' . $media->file_name) }}" alt="{{ $post->title }}">
                                             </div>
                                         @endforeach
                                     </div>
-                                    @if($page->media->count() > 1)
+                                    @if($post->media->count() > 1)
                                         <a class="carousel-control-prev" href="#carouselIndicators" role="button" data-slide="prev">
                                             <span class="carousel-control-prev-icon" aria-hidden="true"></span>
                                             <span class="sr-only">Previous</span>
@@ -39,16 +39,10 @@
 {{--                            </div>--}}
                             <div class="post_wrapper">
                                 <div class="post_header">
-                                    <h2>{{ $page->title }}</h2>
-                                    <div class="blog-date-categori">
-                                        <ul>
-                                            <li>{{ $page->created_at->format('M d, Y') }}</li>
-                                            <li><a href="#" title="Posts by {{ $page->user->name }}" rel="author">{{ $page->user->name }}</a></li>
-                                        </ul>
-                                    </div>
+                                    <h2>{{ $post->title }}</h2>
                                 </div>
                                 <div class="post_content">
-                                    <p>{!! $page->description !!}</p>
+                                    <p>{!! $post->description !!}</p>
                                 </div>
                             </div>
                         </article>

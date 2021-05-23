@@ -40,29 +40,32 @@ class IndexController extends Controller
 
         $post = $post->whereSlug($slug);
 
-        $post = $post->wherePostType('post')->whereStatus(1)->first();
+        $post = $post->whereStatus(1)->first();
 
         if($post) {
-            return view('frontend.post', compact('post'));
+
+            $blade = $post->post_type == 'post' ? 'post' : 'page';
+
+            return view('frontend.' . $blade, compact('post'));
         } else {
             return redirect()->route('frontend.index');
         }
     }
 
-    public function page_show($slug)
-    {
-        $page = Post::with(['media', 'user']);;
-
-        $page = $page->whereSlug($slug);
-
-        $page = $page->wherePostType('page')->whereStatus(1)->first();
-
-        if($page) {
-            return view('frontend.page', compact('page'));
-        } else {
-            return redirect()->route('frontend.index');
-        }
-    }
+//    public function page_show($slug)
+//    {
+//        $page = Post::with(['media', 'user']);;
+//
+//        $page = $page->whereSlug($slug);
+//
+//        $page = $page->wherePostType('page')->whereStatus(1)->first();
+//
+//        if($page) {
+//            return view('frontend.page', compact('page'));
+//        } else {
+//            return redirect()->route('frontend.index');
+//        }
+//    }
 
     public function store_comment(Request $request, $slug)
     {
