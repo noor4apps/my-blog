@@ -49,6 +49,21 @@ class IndexController extends Controller
         }
     }
 
+    public function page_show($slug)
+    {
+        $page = Post::with(['media', 'user']);;
+
+        $page = $page->whereSlug($slug);
+
+        $page = $page->wherePostType('page')->whereStatus(1)->first();
+
+        if($page) {
+            return view('frontend.page', compact('page'));
+        } else {
+            return redirect()->route('frontend.index');
+        }
+    }
+
     public function store_comment(Request $request, $slug)
     {
         $validation = Validator::make($request->all(), [
@@ -84,6 +99,16 @@ class IndexController extends Controller
             'message' => 'Something was wrong.',
             'alert-type' => 'danger'
         ]);
+    }
+
+    public function contact()
+    {
+        return view('frontend.contact');
+    }
+
+    public function do_contact(Request $request)
+    {
+        //
     }
 
 }
