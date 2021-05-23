@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Frontend;
 
 use App\Http\Controllers\Controller;
+use App\Models\Contact;
 use App\Models\Post;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
@@ -52,21 +53,6 @@ class IndexController extends Controller
         }
     }
 
-//    public function page_show($slug)
-//    {
-//        $page = Post::with(['media', 'user']);;
-//
-//        $page = $page->whereSlug($slug);
-//
-//        $page = $page->wherePostType('page')->whereStatus(1)->first();
-//
-//        if($page) {
-//            return view('frontend.page', compact('page'));
-//        } else {
-//            return redirect()->route('frontend.index');
-//        }
-//    }
-
     public function store_comment(Request $request, $slug)
     {
         $validation = Validator::make($request->all(), [
@@ -111,7 +97,30 @@ class IndexController extends Controller
 
     public function do_contact(Request $request)
     {
-        //
+        $validation = Validator::make($request->all(), [
+            'name' => 'required|string',
+            'email' => 'required|email',
+            'mobile' => 'nullable|numeric',
+            'title' => 'required|string|min:5',
+            'message' => 'required|string|min:10',
+        ]);
+        if($validation->fails()) {
+            return redirect()->back()->withErrors($validation)->withInput();
+        }
+
+        $data['name'] = $request->name;
+        $data['email'] = $request->email;
+        $data['mobile'] = $request->mobile;
+        $data['title'] = $request->title;
+        $data['message'] = $request->message;
+
+        Contact::create($data);
+        
+        return redirect()->back()->with([
+            'message' => 'Message send successfully.',
+            'alert-type' => 'success'
+        ]);
+
     }
 
 }
