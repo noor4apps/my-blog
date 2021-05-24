@@ -12,64 +12,28 @@
     <!-- End Single Widget -->
     <!-- Start Single Widget -->
     <aside class="widget recent_widget">
-        <h3 class="widget-title">Recent</h3>
+        <h3 class="widget-title">Recent Posts</h3>
         <div class="recent-posts">
             <ul>
-                <li>
-                    <div class="post-wrapper d-flex">
-                        <div class="thumb">
-                            <a href="blog-details.html"><img src="{{ asset('frontend/images/blog/sm-img/1.jpg') }}" alt="blog images"></a>
+                @foreach($recent_posts as $recent_post)
+                    <li>
+                        <div class="post-wrapper d-flex">
+                            <div class="thumb">
+                                <a href="{{ route('posts.show', $recent_post->slug) }}">
+                                    @if($recent_post->media->count() > 0)
+                                        <img src="{{ asset('assets/posts/' . $recent_post->media->first()->file_name) }}" alt="{{ $recent_post->title }}">
+                                    @else
+                                        <img src="{{ asset('assets/posts/default_small.jpg') }}" alt="blog images">
+                                    @endif
+                                </a>
+                            </div>
+                            <div class="content">
+                                <h4><a href="{{ route('posts.show', $recent_post->slug) }}">{{ Str::limit($recent_post->title, 22, '... ') }}</a></h4>
+                                <p>{{ $recent_post->created_at->format('M d, Y') }}</p>
+                            </div>
                         </div>
-                        <div class="content">
-                            <h4><a href="blog-details.html">Blog image post</a></h4>
-                            <p>	March 10, 2015</p>
-                        </div>
-                    </div>
-                </li>
-                <li>
-                    <div class="post-wrapper d-flex">
-                        <div class="thumb">
-                            <a href="blog-details.html"><img src="{{ asset('frontend/images/blog/sm-img/2.jpg') }}" alt="blog images"></a>
-                        </div>
-                        <div class="content">
-                            <h4><a href="blog-details.html">Post with Gallery</a></h4>
-                            <p>	March 10, 2015</p>
-                        </div>
-                    </div>
-                </li>
-                <li>
-                    <div class="post-wrapper d-flex">
-                        <div class="thumb">
-                            <a href="blog-details.html"><img src="{{ asset('frontend/images/blog/sm-img/3.jpg') }}" alt="blog images"></a>
-                        </div>
-                        <div class="content">
-                            <h4><a href="blog-details.html">Post with Video</a></h4>
-                            <p>	March 10, 2015</p>
-                        </div>
-                    </div>
-                </li>
-                <li>
-                    <div class="post-wrapper d-flex">
-                        <div class="thumb">
-                            <a href="blog-details.html"><img src="{{ asset('frontend/images/blog/sm-img/4.jpg') }}" alt="blog images"></a>
-                        </div>
-                        <div class="content">
-                            <h4><a href="blog-details.html">Maecenas ultricies</a></h4>
-                            <p>	March 10, 2015</p>
-                        </div>
-                    </div>
-                </li>
-                <li>
-                    <div class="post-wrapper d-flex">
-                        <div class="thumb">
-                            <a href="blog-details.html"><img src="{{ asset('frontend/images/blog/sm-img/5.jpg') }}" alt="blog images"></a>
-                        </div>
-                        <div class="content">
-                            <h4><a href="blog-details.html">Blog image post</a></h4>
-                            <p>	March 10, 2015</p>
-                        </div>
-                    </div>
-                </li>
+                    </li>
+                @endforeach
             </ul>
         </div>
     </aside>
