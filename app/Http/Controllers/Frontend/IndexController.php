@@ -49,13 +49,19 @@ class IndexController extends Controller
 
     public function category($slug)
     {
-        $category = Category::whereSlug($slug)-orWhere('id', $slug)->whereStatus(1)->firist()->id;
+        $category = Category::whereSlug($slug)->orWhere('id', $slug)->whereStatus(1)->firstOrFail()->id;
 
         if($category) {
-            $posts = Post::with(['media', 'user', 'category'])
-                ->withCount('approved_comment')
+            $posts = Post::with(['category', 'media', 'user'])
+                ->whereHas('category', function ($query) {
+                    $query->whereStatus(1);
+                })
+                ->whereHas('user', function ($query) {
+                    $query->whereStatus(1);
+                })
+                ->withCount('approved_comments')
                 ->whereCategoryId($category)
-                ->whereStatus(1)
+                ->wherePostType('post')->whereStatus(1)
                 ->orderBy('id', 'desc')->paginate(5);
 
             return view('frontend.index', compact('posts'));
@@ -70,11 +76,17 @@ class IndexController extends Controller
         $month = $exploded_date[0];
         $year = $exploded_date[1];
 
-        $posts = Post::with(['media', 'user', 'category'])
-            ->withCount('approved_comment')
+        $posts = Post::with(['category', 'media', 'user'])
+            ->whereHas('category', function ($query) {
+                $query->whereStatus(1);
+            })
+            ->whereHas('user', function ($query) {
+                $query->whereStatus(1);
+            })
+            ->withCount('approved_comments')
             ->whereMonth('created_at', $month)
             ->whereYear('created_at', $year)
-            ->whereStatus(1)
+            ->wherePostType('post')->whereStatus(1)
             ->orderBy('id', 'desc')->paginate(5);
 
         return view('frontend.index', compact('posts'));
@@ -83,13 +95,16 @@ class IndexController extends Controller
 
     public function authour($username)
     {
-        $user = User::whereUsername($username)->whereStatus(1)->firist()->id;
+        $user = User::whereUsername($username)->whereStatus(1)->firstOrFail()->id;
 
         if($user) {
-            $posts = Post::with(['media', 'user', 'category'])
-                ->withCount('approved_comment')
+            $posts = Post::with(['category', 'media', 'user'])
+                ->whereHas('category', function ($query) {
+                    $query->whereStatus(1);
+                })
+                ->withCount('approved_comments')
                 ->whereUserId($user)
-                ->whereStatus(1)
+                ->wherePostType('post')->whereStatus(1)
                 ->orderBy('id', 'desc')->paginate(5);
 
             return view('frontend.index', compact('posts'));
@@ -115,7 +130,7 @@ class IndexController extends Controller
 
         $post = $post->whereSlug($slug);
 
-        $post = $post->whereStatus(1)->first();
+        $post = $post->whereStatus(1)->firstOrFail();
 
         if($post) {
 
@@ -139,7 +154,7 @@ class IndexController extends Controller
             return redirect()->back()->withErrors($validation)->withInput();
         }
 
-        $post = Post::whereSlug($slug)->wherePostType('post')->whereStatus(1)->first();
+        $post = Post::whereSlug($slug)->wherePostType('post')->whereStatus(1)->firstOrFail();
         if($post) {
 
             $userId = auth()->check() ? auth()->id() : null;
