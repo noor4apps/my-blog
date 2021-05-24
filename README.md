@@ -38,6 +38,10 @@ Searchable allows you to perform searches in a table giving priorities to each f
 
 This is not optimized for big searches, but sometimes you just need to make it simple (Although it is not slow).
 
+###6. Cache(predis/predis)
+- [Redis client](https://github.com/predis/predis)
+A flexible and feature-complete Redis client for PHP.
+
 ##Avatar
 An "avatar" is an image that represents you online—a little picture that appears next to your name when you interact with websites.
 
