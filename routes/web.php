@@ -44,6 +44,10 @@ Route::group(['prefix' => 'admin'], function () {
 Route::get('/contact-us',                   ['as' => 'frontend.contact',         'uses' => 'Frontend\IndexController@contact']);
 Route::post('/contact-us',                  ['as' => 'frontend.do_contact',      'uses' => 'Frontend\IndexController@do_contact']);
 
+Route::get('/category/{category_slug}',     ['as' =>'frontend.category.posts',   'uses' => 'Frontend\IndexController@category']);
+Route::get('/archive/{date}',               ['as' =>'frontend.archive.posts',    'uses' => 'Frontend\IndexController@archive']);
+Route::get('/authour/{username}',           ['as' =>'frontend.authour.posts',    'uses' => 'Frontend\IndexController@authour']);
+
 Route::get('/search',                       ['as' => 'frontend.search',          'uses' => 'Frontend\IndexController@search']);
 
 Route::get('/{post}',                       ['as' => 'posts.show',               'uses' => 'Frontend\IndexController@post_show']);

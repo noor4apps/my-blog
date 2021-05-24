@@ -3,8 +3,10 @@
 namespace App\Http\Controllers\Frontend;
 
 use App\Http\Controllers\Controller;
+use App\Models\Category;
 use App\Models\Contact;
 use App\Models\Post;
+use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 
@@ -43,6 +45,57 @@ class IndexController extends Controller
         $posts = $posts->wherePostType('post')->whereStatus(1)->orderBy('id', 'desc')->paginate(5);
 
         return view('frontend.index', compact('posts'));
+    }
+
+    public function category($slug)
+    {
+        $category = Category::whereSlug($slug)-orWhere('id', $slug)->whereStatus(1)->firist()->id;
+
+        if($category) {
+            $posts = Post::with(['media', 'user', 'category'])
+                ->withCount('approved_comment')
+                ->whereCategoryId($category)
+                ->whereStatus(1)
+                ->orderBy('id', 'desc')->paginate(5);
+
+            return view('frontend.index', compact('posts'));
+        }
+
+        return redirect()->route('frontend.index');
+    }
+
+    public function archive($date)
+    {
+        $exploded_date = explode('-', $date);
+        $month = $exploded_date[0];
+        $year = $exploded_date[1];
+
+        $posts = Post::with(['media', 'user', 'category'])
+            ->withCount('approved_comment')
+            ->whereMonth('created_at', $month)
+            ->whereYear('created_at', $year)
+            ->whereStatus(1)
+            ->orderBy('id', 'desc')->paginate(5);
+
+        return view('frontend.index', compact('posts'));
+
+    }
+
+    public function authour($username)
+    {
+        $user = User::whereUsername($username)->whereStatus(1)->firist()->id;
+
+        if($user) {
+            $posts = Post::with(['media', 'user', 'category'])
+                ->withCount('approved_comment')
+                ->whereUserId($user)
+                ->whereStatus(1)
+                ->orderBy('id', 'desc')->paginate(5);
+
+            return view('frontend.index', compact('posts'));
+        }
+
+        return redirect()->route('frontend.index');
     }
 
     public function post_show($slug)
