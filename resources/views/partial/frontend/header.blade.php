@@ -65,12 +65,22 @@
                                     <div class="switcher-options">
                                         <div class="switcher-currency-trigger">
                                             <div class="setting__menu">
-                                                <span><a href="#">My Dashboard</a></span>
-                                                <span><a href="#">Logout</a></span>
+                                                <!-- Authentication Links -->
+                                                @guest
+                                                    <span><a href="{{ route('frontend.show_login_form') }}">Login</a></span>
+                                                    <span><a href="{{ route('frontend.show_register_form') }}">Register</a></span>
+                                                @else
+                                                    <span><a href="#">My Dashboard</a></span>
+                                                    <span><a href="{{ route('frontend.logout') }}" onclick="event.preventDefault(); document.getElementById('logout-form').submit();"> Logout</a></span>
+                                                    <form id="logout-form" action="{{ route('frontend.logout') }}" method="POST" class="d-none"></span>
+                                                        @csrf
+                                                    </form>
+                                                @endguest
                                             </div>
                                         </div>
                                     </div>
                                 </div>
+
                             </div>
                         </div>
                     </li>
