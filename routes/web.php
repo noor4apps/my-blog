@@ -18,13 +18,13 @@ Route::post('logout',                       ['as' => 'frontend.logout',         
 Route::get('register',                      ['as' => 'frontend.show_register_form',       'uses' => 'Frontend\Auth\RegisterController@showRegistrationForm']);
 Route::post('register',                     ['as' => 'frontend.register',                 'uses' => 'Frontend\Auth\RegisterController@register']);
 // Password Reset Routes...
-Route::get('password/reset',                ['as' => 'frontend.password.request',         'uses' => 'Frontend\Auth\ForgotPasswordController@showLinkRequestForm']);
-Route::post('password/email',               ['as' => 'frontend.password.email',           'uses' => 'Frontend\Auth\ForgotPasswordController@sendResetLinkEmail']);
-Route::get('password/reset/{token}',        ['as' => 'frontend.password.reset',           'uses' => 'Frontend\Auth\ResetPasswordController@showResetForm']);
-Route::post('password/reset',               ['as' => 'frontend.password.update',          'uses' => 'Frontend\Auth\ResetPasswordController@reset']);
+Route::get('password/reset',                ['as' => 'password.request',                  'uses' => 'Frontend\Auth\ForgotPasswordController@showLinkRequestForm']);
+Route::post('password/email',               ['as' => 'password.email',                    'uses' => 'Frontend\Auth\ForgotPasswordController@sendResetLinkEmail']);
+Route::get('password/reset/{token}',        ['as' => 'password.reset',                    'uses' => 'Frontend\Auth\ResetPasswordController@showResetForm']);
+Route::post('password/reset',               ['as' => 'password.update',                   'uses' => 'Frontend\Auth\ResetPasswordController@reset']);
 // Password Confirmation Routes...
-Route::get('password/confirm',              ['as' => 'frontend.password.confirm',         'uses' => 'Frontend\Auth\ConfirmPasswordController@showConfirmForm']);
-Route::post('password/confirm',             ['as' => 'frontend.password',                 'uses' => 'Frontend\Auth\ConfirmPasswordController@confirm']);
+Route::get('password/confirm',              ['as' => 'password.confirm',                  'uses' => 'Frontend\Auth\ConfirmPasswordController@showConfirmForm']);
+Route::post('password/confirm',             ['as' => 'password',                          'uses' => 'Frontend\Auth\ConfirmPasswordController@confirm']);
 // Email Verification Routes...
 Route::get('email/verify',                  ['as' => 'verification.notice',               'uses' => 'Frontend\Auth\VerificationController@show']);
 Route::get('/email/verify/{id}/{hash}',     ['as' => 'verification.verify',               'uses' => 'Frontend\Auth\VerificationController@verify']);

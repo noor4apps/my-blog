@@ -26,7 +26,7 @@
                                 <span>Remember me</span>
                             </label>
                         </div>
-                        <a class="forget_pass" href="{{ route('frontend.password.request') }}">Lost your password?</a>
+                        <a class="forget_pass" href="{{ route('password.request') }}">Lost your password?</a>
                     </div>
                     {{ Form::close() }}
                 </div>

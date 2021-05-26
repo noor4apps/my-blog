@@ -6,7 +6,7 @@
         <div class="row">
             <div class="col-lg-6 offset-lg-3">
                 <div class="my__account__wrapper">
-                    <h3 class="account__title">Login</h3>
+                    <h3 class="account__title">{{ __('Register') }}</h3>
                     {{ Form::open(['route' => 'frontend.register', 'method' => 'post', 'files' => true]) }}
                     <div class="account__form">
                         <div class="input__box">
