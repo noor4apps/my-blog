@@ -54,7 +54,7 @@ class RegisterController extends Controller
         // max:20480Kilobyte(KB) == 20Megabyte(MB)
         return Validator::make($data, [
             'name' => ['required', 'string', 'max:255'],
-            'username' => ['required', 'string', 'max:255'],
+            'username' => ['required', 'string', 'unique:users', 'max:255'],
             'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
             'mobile' => ['required', 'numeric', 'unique:users'],
             'password' => ['required', 'string', 'min:8', 'confirmed'],
@@ -88,7 +88,7 @@ class RegisterController extends Controller
             $filename = Str::slug($data['username']) . '.' . $image->getClientOriginalExtension();
             $path = public_path('/assets/users/' . $filename);
             // image.intervention
-            Image::make($image->getRealPath())->resize(300, 300, function (){
+            Image::make($image->getRealPath())->resize(300, 300, function ($constraint){
                 $constraint->aspectRatio();
             })->save($path, 100);
 

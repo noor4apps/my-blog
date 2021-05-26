@@ -26,9 +26,9 @@ Route::post('password/reset',               ['as' => 'frontend.password.update',
 Route::get('password/confirm',              ['as' => 'frontend.password.confirm',         'uses' => 'Frontend\Auth\ConfirmPasswordController@showConfirmForm']);
 Route::post('password/confirm',             ['as' => 'frontend.password',                 'uses' => 'Frontend\Auth\ConfirmPasswordController@confirm']);
 // Email Verification Routes...
-Route::get('email/verify',                  ['as' => 'frontend.verification.notice',      'uses' => 'Frontend\Auth\VerificationController@show']);
-Route::get('/email/verify/{id}/{hash}',     ['as' => 'frontend.verification.verify',      'uses' => 'Frontend\Auth\VerificationController@verify']);
-Route::post('email/resend',                 ['as' => 'frontend.verification.resend',      'uses' => 'Frontend\Auth\VerificationController@resend']);
+Route::get('email/verify',                  ['as' => 'verification.notice',               'uses' => 'Frontend\Auth\VerificationController@show']);
+Route::get('/email/verify/{id}/{hash}',     ['as' => 'verification.verify',               'uses' => 'Frontend\Auth\VerificationController@verify']);
+Route::post('email/resend',                 ['as' => 'verification.resend',               'uses' => 'Frontend\Auth\VerificationController@resend']);
 
 Route::group(['prefix' => 'admin'], function () {
     // Backend Authentication Routes...
