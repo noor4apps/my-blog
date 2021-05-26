@@ -30,6 +30,10 @@ Route::get('email/verify',                  ['as' => 'verification.notice',     
 Route::get('/email/verify/{id}/{hash}',     ['as' => 'verification.verify',               'uses' => 'Frontend\Auth\VerificationController@verify']);
 Route::post('email/resend',                 ['as' => 'verification.resend',               'uses' => 'Frontend\Auth\VerificationController@resend']);
 
+Route::group(['middleware' => 'verified'], function () {
+    Route::get('/dashboard',                ['as' => 'frontend.dashboard',                'uses' => 'Frontend\UsersController@index']);
+});
+
 Route::group(['prefix' => 'admin'], function () {
     // Backend Authentication Routes...
     Route::get('/login',                    ['as' => 'admin.show_login_form',     'uses' => 'Backend\Auth\LoginController@showLoginForm']);

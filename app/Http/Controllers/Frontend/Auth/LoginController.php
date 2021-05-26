@@ -4,6 +4,8 @@ namespace App\Http\Controllers\Frontend\Auth;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class LoginController extends Controller
 {
@@ -56,5 +58,33 @@ class LoginController extends Controller
     public function username()
     {
         return 'username';
+    }
+
+    /*
+     * The user has been authenticated.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @param  mixed  $user
+     * @return mixed
+     */
+    protected function authenticated(Request $request, $user)
+    {
+        if ($user->status == 1) {
+            return redirect()->route('frontend.index')->with([
+                'message' => 'Logged in successfully.',
+                'alert-type' => 'success'
+            ]);
+        }
+
+        Auth::logout();
+
+        $request->session()->invalidate();
+
+        $request->session()->regenerateToken();
+
+        return redirect()->route('frontend.index')->with([
+            'message' => 'Please contact Administrator.',
+            'alert-type' => 'warning'
+        ]);
     }
 }
