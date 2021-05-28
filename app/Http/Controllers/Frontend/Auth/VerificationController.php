@@ -62,9 +62,9 @@ class VerificationController extends Controller
      */
     protected function verified(Request $request)
     {
-        $request->user()->update(['status' => 1]);
+//        $request->user()->update(['status' => 1]);
 
-        return redirect()->route('frontend.index')->with([
+        return redirect()->route('frontend.dashboard')->with([
             'message' => 'Your account is activated successfully.',
             'alert-type' => 'success'
         ]);
