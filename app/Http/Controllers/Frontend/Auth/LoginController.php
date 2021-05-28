@@ -70,7 +70,7 @@ class LoginController extends Controller
     protected function authenticated(Request $request, $user)
     {
         if ($user->status == 1) {
-            return redirect()->route('frontend.index')->with([
+            return redirect()->route('frontend.dashboard')->with([
                 'message' => 'Logged in successfully.',
                 'alert-type' => 'success'
             ]);
