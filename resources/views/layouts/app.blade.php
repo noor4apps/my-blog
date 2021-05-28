@@ -31,6 +31,7 @@
 
     <!-- Modernizer js -->
     <script src="{{ asset('frontend/js/vendor/modernizr-3.5.0.min.js') }}"></script>
+    @yield('style')
 </head>
 <body>
     <!--[if lte IE 9]>
@@ -60,5 +61,6 @@
     <script src="{{ asset('frontend/js/plugins.js') }}"></script>
     <script src="{{ asset('frontend/js/active.js') }}"></script>
     <script src="{{ asset('frontend/js/custom.js') }}"></script>
+    @yield('script')
 </body>
 </html>
