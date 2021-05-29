@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Frontend;
 
 use App\Http\Controllers\Controller;
 use App\Models\Category;
+use App\Models\Post;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Validator;
@@ -81,5 +82,26 @@ class UsersController extends Controller
             'alert-type' => 'success',
         ]);
 
+    }
+
+    public function edit_post($post_id)
+    {
+        $post = Post::whereSlug($post_id)->orWhere('id', $post_id)->whereUserId(auth()->id())->first();
+
+        if ($post) {
+            $categories = Category::whereStatus(1)->pluck('name', 'id');
+            return view('frontend.users.edit_post', compact('post', 'categories'));
+        }
+        return redirect()->route('frontend.dashboard');
+    }
+
+    public function update_post(Request $request, $post_id)
+    {
+        //
+    }
+
+    public function destroy_post_media($media_id)
+    {
+        //
     }
 }
