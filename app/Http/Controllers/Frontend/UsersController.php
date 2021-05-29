@@ -208,7 +208,7 @@ class UsersController extends Controller
     public function show_comments()
     {
         $posts_id = auth()->user()->posts->pluck('id')->toArray();
-        $comments = Comment::whereIn('post_id', $posts_id)->paginate(10);
+        $comments = Comment::whereIn('post_id', $posts_id)->orderBy('id', 'desc')->paginate(10);
 
         return view('frontend.users.comments', compact('comments'));
     }
@@ -231,12 +231,70 @@ class UsersController extends Controller
 
     public function update_comment(Request $request, $comment_id)
     {
-        //
+        $validation = Validator::make($request->all(), [
+            'name' => 'required',
+            'email' => 'required|email',
+            'url' => 'nullable|url',
+            'status' => 'required',
+            'comment' => 'required',
+        ]);
+        if ($validation->fails()) {
+            return redirect()->back()->withErrors($validation)->withInput();
+        }
+
+        $comment = Comment::whereId($comment_id)->whereHas('post', function ($query) {
+            $query->where('posts.user_id', auth()->id());
+        })->first();
+
+        if ($comment) {
+            $data['name'] = $request->name;
+            $data['email'] = $request->email;
+            $data['url'] = $request->url;
+            $data['status'] = $request->status;
+            $data['comment'] = Purify::clean($request->comment);
+
+            $comment->update($data);
+
+            if($request->status == 1) {
+                Cache::forget('recent_comments');
+            }
+
+            return redirect()->back()->with([
+                'message' => 'Comment updated successfully.',
+                'alert-type' => 'success',
+            ]);
+
+        } else {
+            return redirect()->back()->with([
+                'message' => 'Something was wrong.',
+                'alert-type' => 'danger',
+            ]);
+        }
     }
 
     public function destroy_comment($comment_id)
     {
-        //
+        $comment = Comment::whereId($comment_id)->whereHas('post', function ($query) {
+            $query->where('posts.user_id', auth()->id());
+        })->first();
+
+        if ($comment) {
+
+            $comment->delete();
+
+            Cache::forget('recent_comments');
+
+            return redirect()->back()->with([
+                'message' => 'Comment deleted successfully.',
+                'alert-type' => 'success',
+            ]);
+
+        } else {
+            return redirect()->back()->with([
+                'message' => 'Something was wrong.',
+                'alert-type' => 'danger',
+            ]);
+        }
     }
 
 }
