@@ -17,7 +17,7 @@
                                     </ol>
                                     <div class="carousel-inner">
                                         @foreach($post->media as $media)
-                                            <div class="carousel-item {{ $loop->index == 0 ? 'active' : ''}}">
+                                            <div class="post-thumbnail carousel-item {{ $loop->index == 0 ? 'active' : ''}}">
                                                 <img class="d-block w-100" src="{{ asset('assets/posts/' . $media->file_name) }}" alt="{{ $post->title }}">
                                             </div>
                                         @endforeach
@@ -34,9 +34,7 @@
                                     @endif
                                 </div>
                             @endif
-{{--                            <div class="post-thumbnail">--}}
-{{--                                <img src="{{ asset('frontend/images/blog/big-img/1.jpg') }}" alt="blog images">--}}
-{{--                            </div>--}}
+
                             <div class="post_wrapper">
                                 <div class="post_header">
                                     <h2>{{ $post->title }}</h2>

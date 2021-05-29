@@ -1,13 +1,5 @@
 <p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400"></a></p>
 
-## Header
-
-paragraph
-
-- [laravel](https://laravel.com/).
-- [item list](https://laravel.com).
-- 
-
 ## Packages
 
 ###1. Zizaco/entrust
@@ -42,12 +34,28 @@ This is not optimized for big searches, but sometimes you just need to make it s
 - [Redis client](https://github.com/predis/predis)
 A flexible and feature-complete Redis client for PHP.
 
+###7. (stevebauman/purify)
+- [Purify](https://github.com/stevebauman/purify)
+ is an HTML input sanitizer for Laravel.
+
+
+
 ##Avatar
 An "avatar" is an image that represents you online—a little picture that appears next to your name when you interact with websites.
 
 ###Gravatar gravatar.com
 [gravatar.com](https://ar.gravatar.com/site/implement/images/php/)
 A Gravatar is a Globally Recognized Avatar. You upload an image and create your public profile just once, and then when you participate in any Gravatar-enabled site, your Gravatar image and public profile will automatically follow you there.
+
+##Vendors
+
+###summernote.org
+[Summernote](https://summernote.org/)
+Super Simple WYSIWYG, Editor on Bootstrap
+
+###kartik-v/bootstrap-fileinput
+[File Input](https://plugins.krajee.com/file-input)
+An enhanced HTML 5 file input for Bootstrap 5.x/4.x./3.x with file preview, multiple selection, and more features.
 
 ##Themes
 

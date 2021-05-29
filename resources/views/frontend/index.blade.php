@@ -27,7 +27,7 @@
                                     <li class="post_separator">/</li>
                                     <li>{{ $post->created_at->format('M d Y') }}</li>
                                 </ul>
-                                <p>{{ \Illuminate\Support\Str::limit($post->description, 145, ' ...') }}</p>
+                                <p>{!! Str::limit($post->description, 145, ' ...') !!}</p>
                                 <div class="blog__btn">
                                     <a href="{{ route('posts.show', $post->slug) }}">read more</a>
                                 </div>

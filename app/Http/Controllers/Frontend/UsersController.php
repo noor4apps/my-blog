@@ -5,6 +5,10 @@ namespace App\Http\Controllers\Frontend;
 use App\Http\Controllers\Controller;
 use App\Models\Category;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Cache;
+use Illuminate\Support\Facades\Validator;
+use Intervention\Image\Facades\Image;
+use Stevebauman\Purify\Facades\Purify;
 
 class UsersController extends Controller
 {
@@ -30,6 +34,52 @@ class UsersController extends Controller
 
     public function store_post(Request $request)
     {
-        //
+        $validation = Validator::make($request->all(), [
+            'title' => 'required',
+            'description' => 'required|min:30',
+            'status' => 'required',
+            'comment_able' => 'required',
+            'category_id' => 'required',
+        ]);
+        if ($validation->fails()) {
+            return redirect()->back()->withErrors($validation)->withInput();
+        }
+        $data['title' ] = $request->title;
+        $data['description'] = Purify::clean($request->description);
+        $data['status'] = $request->status;
+        $data['comment_able'] = $request->comment_able;
+        $data['category_id'] = $request->category_id;
+
+        $post = auth()->user()->posts()->create($data);
+
+        if ($request->images && count($request->images)) {
+            $i = 1;
+            foreach ($request->images as $file) {
+                $filename = $post->slug . '-' . time() . '-' . $i . '.' . $file->getClientOriginalExtension();
+                $file_size = $file->getSize();
+                $file_type = $file->getMimeType();
+                $path = public_path('assets/posts/' . $filename);
+                Image::make($file->getRealPath())->resize(880, 460, function ($constraint){
+                    $constraint->aspectRatio();
+                })->save($path, 100);
+
+                $post->media()->create([
+                    'file_name' => $filename,
+                    'file_size' => $file_size,
+                    'file_type' => $file_type,
+                ]);
+                $i++;
+            }
+        }
+
+        if($request->status == 1) {
+            Cache::forget('recent_posts');
+        }
+
+        return redirect()->back()->with([
+            'message' => 'Post Created successfully',
+            'alert-type' => 'success',
+        ]);
+
     }
 }
