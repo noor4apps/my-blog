@@ -39,9 +39,14 @@ Route::group(['middleware' => 'verified'], function () {
     Route::get('/edit-post/{post_id}',           ['as' => 'users.post.edit',                'uses' => 'Frontend\UsersController@edit_post']);
     Route::put('/edit-post/{post_id}',           ['as' => 'users.post.update',              'uses' => 'Frontend\UsersController@update_post']);
 
-    Route::delete('/delete-post/{post_id}',         ['as' => 'users.post.destroy',              'uses' => 'Frontend\UsersController@destroy_post']);
+    Route::delete('/delete-post/{post_id}',      ['as' => 'users.post.destroy',             'uses' => 'Frontend\UsersController@destroy_post']);
 
     Route::post('/delete-post-media/{media_id}', ['as' => 'users.post.media.destroy',       'uses' => 'Frontend\UsersController@destroy_post_media']);
+
+    Route::get('/comments',                      ['as' => 'users.comments',                 'uses' => 'Frontend\UsersController@show_comments']);
+    Route::get('/edit-comment/{comment_id}',     ['as' => 'users.comment.edit',             'uses' => 'Frontend\UsersController@edit_comment']);
+    Route::put('/edit-comment/{comment_id}',     ['as' => 'users.comment.update',           'uses' => 'Frontend\UsersController@update_comment']);
+    Route::delete('/delete-comment/{comment_id}',['as' => 'users.comment.destroy',          'uses' => 'Frontend\UsersController@destroy_comment']);
 });
 
 Route::group(['prefix' => 'admin'], function () {

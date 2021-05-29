@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Frontend;
 
 use App\Http\Controllers\Controller;
 use App\Models\Category;
+use App\Models\Comment;
 use App\Models\Post;
 use App\Models\PostMedia;
 use Illuminate\Http\Request;
@@ -201,4 +202,41 @@ class UsersController extends Controller
         }
         return false;
     }
+
+    //
+
+    public function show_comments()
+    {
+        $posts_id = auth()->user()->posts->pluck('id')->toArray();
+        $comments = Comment::whereIn('post_id', $posts_id)->paginate(10);
+
+        return view('frontend.users.comments', compact('comments'));
+    }
+
+    public function edit_comment($comment_id)
+    {
+        $comment = Comment::whereId($comment_id)->whereHas('post', function ($query) {
+            $query->where('posts.user_id', auth()->id());
+        })->first();
+
+        if ($comment) {
+            return view('frontend.users.edit_comment', compact('comment'));
+        } else {
+            return redirect()->back()->with([
+                'message' => 'Something was wrong.',
+                'alert-type' => 'danger',
+            ]);
+        }
+    }
+
+    public function update_comment(Request $request, $comment_id)
+    {
+        //
+    }
+
+    public function destroy_comment($comment_id)
+    {
+        //
+    }
+
 }
