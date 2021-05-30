@@ -33,6 +33,11 @@ Route::post('email/resend',                 ['as' => 'verification.resend',     
 Route::group(['middleware' => 'verified'], function () {
     Route::get('/dashboard',                     ['as' => 'frontend.dashboard',             'uses' => 'Frontend\UsersController@index']);
 
+    Route::get('/edit-info',                     ['as' => 'users.edit_info',                'uses' => 'Frontend\UsersController@edit_info']);
+    Route::post('/edit-info',                    ['as' => 'users.update_info',              'uses' => 'Frontend\UsersController@update_info']);
+
+    Route::post('/edit-password',                ['as' => 'users.update_password',          'uses' => 'Frontend\UsersController@update_password']);
+
     Route::get('/create-post',                   ['as' => 'users.post.create',              'uses' => 'Frontend\UsersController@create_post']);
     Route::post('/create-post',                  ['as' => 'users.post.store',               'uses' => 'Frontend\UsersController@store_post']);
 

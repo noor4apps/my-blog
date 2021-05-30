@@ -297,4 +297,21 @@ class UsersController extends Controller
         }
     }
 
+    //
+
+    public function edit_info()
+    {
+        return view('frontend.users.edit_info');
+    }
+
+    public function update_info(Request $request)
+    {
+        //
+    }
+
+    public function update_password(Request $request)
+    {
+        //
+    }
+
 }
