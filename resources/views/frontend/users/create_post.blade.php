@@ -33,7 +33,7 @@
                     </div>
                     <div class="col-4">
                         {{ Form::label('comment_able', 'Comment able') }}
-                        {{ Form::select('comment_able', ['1' => 'Yes', '2' => 'No'], old('comment_able'), ['class' => 'form-control']) }}
+                        {{ Form::select('comment_able', ['1' => 'Yes', '0' => 'No'], old('comment_able'), ['class' => 'form-control']) }}
                         @error('comment_able')<span class="text-danger">{{ $message }}</span>@enderror
                     </div>
                     <div class="col-4">

@@ -58,7 +58,7 @@ class UsersController extends Controller
 
         $post = auth()->user()->posts()->create($data);
 
-        if ($request->images && count($request->images)) {
+        if ($request->images && count($request->images) > 0) {
             $i = 1;
             foreach ($request->images as $file) {
                 $filename = $post->slug . '-' . time() . '-' . $i . '.' . $file->getClientOriginalExtension();
@@ -124,7 +124,7 @@ class UsersController extends Controller
 
             $post->update($data);
 
-            if ($request->images && count($request->images)) {
+            if ($request->images && count($request->images) > 0) {
                 $i = 1;
                 foreach ($request->images as $file) {
                     $filename = $post->slug . '-' . time() . '-' . $i . '.' . $file->getClientOriginalExtension();
@@ -314,13 +314,13 @@ class UsersController extends Controller
             'mobile' => 'required|numeric',
             'bio' => 'nullable|min:10',
             'receive_email' => 'required',
-            'user_image' => 'nullable|image|max:20000,mimes:jpeg,jpg,png',
+            'user_image' => 'nullable|image|max:20480,mimes:jpeg,jpg,png',
         ]);
         if ($validation->fails()) {
             return redirect()->back()->withErrors($validation)->withInput();
         }
         $data['name' ] = $request->name;
-        $data['mobile'] = $request->email;
+        $data['email'] = $request->email;
         $data['mobile'] = $request->mobile;
         $data['bio'] = $request->bio;
         $data['receive_email'] = $request->receive_email;
@@ -384,7 +384,7 @@ class UsersController extends Controller
             }
         } else {
             return redirect()->back()->with([
-                'message' => 'Something was wrong.',
+                'message' => 'The password is wrong!',
                 'alert-type' => 'danger',
             ]);
         }
