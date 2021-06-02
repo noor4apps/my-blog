@@ -34,26 +34,7 @@
             <div class="col-md-8 col-sm-8 col-5 col-lg-2">
                 <ul class="header__sidebar__right d-flex justify-content-end align-items-center">
                     <li class="shop_search"><a class="search__active" href="#"></a></li>
-                    <li class="shopcart"><a class="cartbox_active" href="#"><span class="product_qun">3</span></a>
-                        <!-- Start Shopping Cart -->
-                        <div class="block-minicart minicart__active">
-                            <div class="minicart-content-wrapper">
-                                <div class="single__items">
-                                    <div class="miniproduct">
-                                        <div class="item01 d-flex mt--20">
-                                            <div class="thumb">
-                                                <a href="product-details.html"><img src="{{ asset('assets/posts/default_small.jpg') }}" width="50" height="50" alt="product images"></a>
-                                            </div>
-                                            <div class="content">
-                                                <h6><a href="product-details.html">You have new comment on your post: post title</a></h6>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <!-- End Shopping Cart -->
-                    </li>
+
                     <li class="setting__bar__icon"><a class="setting__active" href="#"></a>
                         <div class="searchbar__content setting__block">
                             <div class="content-inner">
