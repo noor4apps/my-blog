@@ -1,18 +1,22 @@
 <template>
-    <li class="shopcart"><a class="cartbox_active" href="#"><span class="product_qun">3</span></a>
+    <li class="shopcart"><a class="cartbox_active" href="#">
+        <span class="product_qun" v-if="unreadCount > 0">{{ unreadCount }}</span>
+    </a>
         <!-- Start Shopping Cart -->
         <div class="block-minicart minicart__active">
-            <div class="minicart-content-wrapper">
+            <div class="minicart-content-wrapper" v-if="unreadCount > 0">
                 <div class="single__items">
                     <div class="miniproduct">
-                        <div class="item01 d-flex mt--20">
+
+                        <div class="item01 d-flex mt--20" v-for="item in unread" :key="item.id">
                             <div class="thumb">
-                                <a href="product-details.html"><img src="{{ asset('assets/posts/default_small.jpg') }}" width="50" height="50" alt="product images"></a>
+                                <a :href="`${item.data.post_slug}`" @click="readNotifications(item)"><img src="/frontend/images/icons/comment.png" alt="`${ item.data.post_title }`"></a>
                             </div>
                             <div class="content">
-                                <h6><a href="product-details.html">You have new comment on your post: post title</a></h6>
+                                <h6><a :href="`${item.data.post_slug}`" @click="readNotifications(item)">You have new comment on your post: {{ item.data.post_title }}</a></h6>
                             </div>
                         </div>
+
                     </div>
                 </div>
             </div>
@@ -31,18 +35,31 @@
             }
         },
         created: function () {
+            this.getNotification();
+
             let userId = $('meta[name="userId"]').attr('content');
-            Echo.private('App.User.' + userId)
-                .notification((noti) => {
-                    this.unread.unshift(noti);
-                    this.unreadCount++;
-                });
+            Echo.private('App.User.' + userId).notification((noti) => {
+                this.unread.unshift(noti);
+                this.unreadCount++;
+            });
         },
 
         methods: {
             getNotification() {
-                axios.get('user/notifications/get')
+                axios.get('user/notifications/get').then(res => {
+                    this.read = res.data.read;
+                    this.unread = res.data.unread;
+                    this.unreadCount = res.data.unread.length;
+                }).catch(error => Exception.handle(error))
+            },
+            readNotifications(notification) {
+                axios.post('user/notification/read', {id: notification.id}).then(res => {
+                    this.unread.splice(notification, 1);
+                    this.read.push(notification);
+                    this.unreadCount--;
+                })
             }
         }
+
     }
 </script>

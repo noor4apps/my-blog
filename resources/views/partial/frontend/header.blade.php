@@ -35,6 +35,8 @@
                 <ul class="header__sidebar__right d-flex justify-content-end align-items-center">
                     <li class="shop_search"><a class="search__active" href="#"></a></li>
 
+                    <user-notification></user-notification>
+
                     <li class="setting__bar__icon"><a class="setting__active" href="#"></a>
                         <div class="searchbar__content setting__block">
                             <div class="content-inner">
