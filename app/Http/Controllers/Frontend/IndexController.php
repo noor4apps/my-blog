@@ -16,14 +16,15 @@ class IndexController extends Controller
 {
     public function index()
     {
-        $posts = Post::with(['category', 'media', 'user'])
+        $posts = Post::with(['media', 'user'])
             ->whereHas('category', function ($query) {
                 $query->whereStatus(1);
             })
             ->whereHas('user', function ($query) {
                 $query->whereStatus(1);
             })
-            ->wherePostType('post')->whereStatus(1)->orderBy('id', 'desc')->paginate(5);
+            ->post()->active()->orderBy('id', 'desc')->paginate(5);
+//            ->wherePostType('post')->whereStatus(1)->orderBy('id', 'desc')->paginate(5);
 
         return view('frontend.index', compact('posts'));
     }
@@ -32,7 +33,7 @@ class IndexController extends Controller
     {
         $keyword = isset($request->keyword) && $request->keyword != '' ? $request->keyword : null;
 
-        $posts = Post::with(['category', 'media', 'user'])
+        $posts = Post::with(['media', 'user'])
             ->whereHas('category', function ($query) {
                 $query->whereStatus(1);
             })
@@ -44,7 +45,7 @@ class IndexController extends Controller
             $posts = $posts->search($keyword, null, true);
         }
 
-        $posts = $posts->wherePostType('post')->whereStatus(1)->orderBy('id', 'desc')->paginate(5);
+        $posts = $posts->post()->active()->orderBy('id', 'desc')->paginate(5);
 
         return view('frontend.index', compact('posts'));
     }
@@ -54,16 +55,15 @@ class IndexController extends Controller
         $category = Category::whereSlug($slug)->orWhere('id', $slug)->whereStatus(1)->firstOrFail()->id;
 
         if($category) {
-            $posts = Post::with(['category', 'media', 'user'])
+            $posts = Post::with(['media', 'user'])
                 ->whereHas('category', function ($query) {
                     $query->whereStatus(1);
                 })
                 ->whereHas('user', function ($query) {
                     $query->whereStatus(1);
                 })
-                ->withCount('approved_comments')
                 ->whereCategoryId($category)
-                ->wherePostType('post')->whereStatus(1)
+                ->post()->active()
                 ->orderBy('id', 'desc')->paginate(5);
 
             return view('frontend.index', compact('posts'));
@@ -78,17 +78,16 @@ class IndexController extends Controller
         $month = $exploded_date[0];
         $year = $exploded_date[1];
 
-        $posts = Post::with(['category', 'media', 'user'])
+        $posts = Post::with(['media', 'user'])
             ->whereHas('category', function ($query) {
                 $query->whereStatus(1);
             })
             ->whereHas('user', function ($query) {
                 $query->whereStatus(1);
             })
-            ->withCount('approved_comments')
             ->whereMonth('created_at', $month)
             ->whereYear('created_at', $year)
-            ->wherePostType('post')->whereStatus(1)
+            ->post()->active()
             ->orderBy('id', 'desc')->paginate(5);
 
         return view('frontend.index', compact('posts'));
@@ -100,13 +99,12 @@ class IndexController extends Controller
         $user = User::whereUsername($username)->whereStatus(1)->firstOrFail()->id;
 
         if($user) {
-            $posts = Post::with(['category', 'media', 'user'])
+            $posts = Post::with(['media', 'user'])
                 ->whereHas('category', function ($query) {
                     $query->whereStatus(1);
                 })
-                ->withCount('approved_comments')
                 ->whereUserId($user)
-                ->wherePostType('post')->whereStatus(1)
+                ->post()->active()
                 ->orderBy('id', 'desc')->paginate(5);
 
             return view('frontend.index', compact('posts'));
@@ -132,7 +130,7 @@ class IndexController extends Controller
 
         $post = $post->whereSlug($slug);
 
-        $post = $post->whereStatus(1)->firstOrFail();
+        $post = $post->active()->first();
 
         if($post) {
 
@@ -156,7 +154,7 @@ class IndexController extends Controller
             return redirect()->back()->withErrors($validation)->withInput();
         }
 
-        $post = Post::whereSlug($slug)->wherePostType('post')->whereStatus(1)->firstOrFail();
+        $post = Post::whereSlug($slug)->wherePostType('post')->whereStatus(1)->first();
         if($post) {
 
             $userId = auth()->check() ? auth()->id() : null;

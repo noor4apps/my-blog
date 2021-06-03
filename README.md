@@ -38,6 +38,9 @@ A flexible and feature-complete Redis client for PHP.
 - [Purify](https://github.com/stevebauman/purify)
  is an HTML input sanitizer for Laravel.
 
+###8. (barryvdh/laravel-debugbar)
+- [Laravel Debugbar](https://github.com/barryvdh/laravel-debugbar)
+This is a package to integrate PHP Debug Bar with Laravel. It includes a ServiceProvider to register the debugbar and attach it to the output. You can publish assets and configure it through Laravel. It bootstraps some Collectors to work with Laravel and implements a couple custom DataCollectors, specific for Laravel. It is configured to display Redirects and (jQuery) Ajax Requests. (Shown in a dropdown) Read the documentation for more configuration options.
 
 
 ##Avatar

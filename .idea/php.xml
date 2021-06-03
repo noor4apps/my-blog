@@ -134,6 +134,9 @@
       <path value="$PROJECT_DIR$/vendor/cboden/ratchet" />
       <path value="$PROJECT_DIR$/vendor/react/cache" />
       <path value="$PROJECT_DIR$/vendor/symfony/polyfill-intl-normalizer" />
+      <path value="$PROJECT_DIR$/vendor/barryvdh/laravel-debugbar" />
+      <path value="$PROJECT_DIR$/vendor/maximebf/debugbar" />
+      <path value="$PROJECT_DIR$/vendor/symfony/debug" />
     </include_path>
   </component>
   <component name="PhpUnit">
