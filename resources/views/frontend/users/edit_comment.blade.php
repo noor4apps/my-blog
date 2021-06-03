@@ -2,10 +2,7 @@
 
 @section('content')
 
-    <div class="page-blog bg--white section-padding--lg blog-sidebar right-sidebar">
-        <div class="container">
-            <div class="row">
-                <div class="col-lg-9 col-12">
+    <div class="col-lg-9 col-12">
                     <h3>Edit Comment on ({{ $comment->post->title }})</h3>
                     {{ Form::model($comment, ['route' => ['users.comment.update', $comment->id], 'method' => 'put']) }}
                     <div class="row">
@@ -50,11 +47,8 @@
                     </div>
                     {{ Form::close() }}
                 </div>
-                <div class="col-lg-3 col-12 md-mt-40 sm-mt-40">
-                    @include('partial.frontend.users.sidebar')
-                </div>
-            </div>
-        </div>
+    <div class="col-lg-3 col-12 md-mt-40 sm-mt-40">
+        @include('partial.frontend.users.sidebar')
     </div>
 
 @endsection
