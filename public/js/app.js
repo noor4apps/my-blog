@@ -1935,6 +1935,7 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
@@ -1946,16 +1947,16 @@ __webpack_require__.r(__webpack_exports__);
   created: function created() {
     var _this = this;
 
-    this.getNotification();
+    this.getNotifications();
     var userId = $('meta[name="userId"]').attr('content');
-    Echo["private"]('App.User.' + userId).notification(function (noti) {
-      _this.unread.unshift(noti);
+    Echo["private"]('App.User.' + userId).notification(function (notification) {
+      _this.unread.unshift(notification);
 
       _this.unreadCount++;
     });
   },
   methods: {
-    getNotification: function getNotification() {
+    getNotifications: function getNotifications() {
       var _this2 = this;
 
       axios.get('user/notifications/get').then(function (res) {
@@ -1969,7 +1970,7 @@ __webpack_require__.r(__webpack_exports__);
     readNotifications: function readNotifications(notification) {
       var _this3 = this;
 
-      axios.post('user/notification/read', {
+      axios.post('user/notifications/read', {
         id: notification.id
       }).then(function (res) {
         _this3.unread.splice(notification, 1);
@@ -43787,7 +43788,7 @@ var render = function() {
                         _c(
                           "a",
                           {
-                            attrs: { href: "" + item.data.post_slug },
+                            attrs: { href: "edit-comment/" + item.data.id },
                             on: {
                               click: function($event) {
                                 return _vm.readNotifications(item)
@@ -43798,7 +43799,7 @@ var render = function() {
                             _c("img", {
                               attrs: {
                                 src: "/frontend/images/icons/comment.png",
-                                alt: "`${ item.data.post_title }`"
+                                alt: "`${item.data.post_title}`"
                               }
                             })
                           ]
@@ -43806,25 +43807,23 @@ var render = function() {
                       ]),
                       _vm._v(" "),
                       _c("div", { staticClass: "content" }, [
-                        _c("h6", [
-                          _c(
-                            "a",
-                            {
-                              attrs: { href: "" + item.data.post_slug },
-                              on: {
-                                click: function($event) {
-                                  return _vm.readNotifications(item)
-                                }
+                        _c(
+                          "a",
+                          {
+                            attrs: { href: "edit-comment/" + item.data.id },
+                            on: {
+                              click: function($event) {
+                                return _vm.readNotifications(item)
                               }
-                            },
-                            [
-                              _vm._v(
-                                "You have new comment on your post: " +
-                                  _vm._s(item.data.post_title)
-                              )
-                            ]
-                          )
-                        ])
+                            }
+                          },
+                          [
+                            _vm._v(
+                              "You have new comment on your post: " +
+                                _vm._s(item.data.post_title)
+                            )
+                          ]
+                        )
                       ])
                     ]
                   )

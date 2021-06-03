@@ -52,7 +52,7 @@ class NewCommentForPostOwnerNotify extends Notification implements ShouldQueue, 
     {
         return (new MailMessage)
                     ->line('There is new comment form ' . $this->comment->name . ' on your post ' . $this->comment->post->title . ' .')
-                    ->action('Go to your post', route('posts.show', $this->comment->post->slug))
+                    ->action('Go to your post', route('users.comment.edit', $this->comment->id))
                     ->line('Thank you for using our application!');
     }
 
@@ -65,6 +65,7 @@ class NewCommentForPostOwnerNotify extends Notification implements ShouldQueue, 
     public function toDatabase($notifiable)
     {
         return [
+            'id' => $this->comment->id,
             'name' => $this->comment->name,
             'email' => $this->comment->email,
             'url' => $this->comment->comment,
@@ -79,6 +80,7 @@ class NewCommentForPostOwnerNotify extends Notification implements ShouldQueue, 
     {
         return new BroadcastMessage([
             'data' =>[
+                'id' => $this->comment->id,
                 'name' => $this->comment->name,
                 'email' => $this->comment->email,
                 'url' => $this->comment->comment,

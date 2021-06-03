@@ -29,7 +29,7 @@ class NotificationsController extends Controller
 
         if(auth()->user()->roles->first()->name == 'user') {
             if($noty == 'App\Notifications\NewCommentForPostOwnerNotify') {
-                return redirect()->route('posts.show', $noty->data['post_slug']);
+                return redirect()->route('users.comment.edit', $noty->data['id']);
             } else {
                 return redirect()->back();
             }
