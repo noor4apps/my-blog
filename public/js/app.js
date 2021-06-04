@@ -1948,8 +1948,11 @@ __webpack_require__.r(__webpack_exports__);
     var _this = this;
 
     this.getNotifications();
-    var userId = $('meta[name="userId"]').attr('content');
-    Echo["private"]('App.User.' + userId).notification(function (notification) {
+    var userId = $('meta[name="userId"]').attr('content'); // Get a private channel instance by name.
+
+    Echo["private"]('App.User.' + userId) // Listen for an event on the channel instance.
+    .notification(function (notification) {
+      // Add items to the beginning of an array.
       _this.unread.unshift(notification);
 
       _this.unreadCount++;
@@ -1960,6 +1963,8 @@ __webpack_require__.r(__webpack_exports__);
       var _this2 = this;
 
       axios.get('user/notifications/get').then(function (res) {
+        // res: {data: {…}, status: 200, statusText: "OK", headers: {…}, config: {…}, …}
+        // data: {read: Array(size), unread: Array(size), usertype: "user"}
         _this2.read = res.data.read;
         _this2.unread = res.data.unread;
         _this2.unreadCount = res.data.unread.length;
@@ -1973,7 +1978,10 @@ __webpack_require__.r(__webpack_exports__);
       axios.post('user/notifications/read', {
         id: notification.id
       }).then(function (res) {
-        _this3.unread.splice(notification, 1);
+        // notification: {…}|,created_at: ("2021-06-03T...), data: (Object), id: (2a4bbbc4...), notifiable_id: (4), notifiable_type: ("App\\Models\\User"), read_at: (null), type: ("App\\Notifications\\NewCommentForPostOwnerNotify"), updated_at: ("2021-06-0...)
+        // Removes elements from an array splice(start: number, deleteCount?: number): T[];
+        _this3.unread.splice(notification, 1); // Add items to the end of an array.
+
 
         _this3.read.push(notification);
 
@@ -56110,14 +56118,15 @@ window.Echo = new laravel_echo__WEBPACK_IMPORTED_MODULE_0__["default"]({
 /*!******************************************************!*\
   !*** ./resources/js/components/UserNotification.vue ***!
   \******************************************************/
-/*! exports provided: default */
+/*! no static exports found */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _UserNotification_vue_vue_type_template_id_289ae7c1___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./UserNotification.vue?vue&type=template&id=289ae7c1& */ "./resources/js/components/UserNotification.vue?vue&type=template&id=289ae7c1&");
 /* harmony import */ var _UserNotification_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./UserNotification.vue?vue&type=script&lang=js& */ "./resources/js/components/UserNotification.vue?vue&type=script&lang=js&");
-/* empty/unused harmony star reexport *//* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
+/* harmony reexport (unknown) */ for(var __WEBPACK_IMPORT_KEY__ in _UserNotification_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__) if(["default"].indexOf(__WEBPACK_IMPORT_KEY__) < 0) (function(key) { __webpack_require__.d(__webpack_exports__, key, function() { return _UserNotification_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__[key]; }) }(__WEBPACK_IMPORT_KEY__));
+/* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
 
 
 
@@ -56147,7 +56156,7 @@ component.options.__file = "resources/js/components/UserNotification.vue"
 /*!*******************************************************************************!*\
   !*** ./resources/js/components/UserNotification.vue?vue&type=script&lang=js& ***!
   \*******************************************************************************/
-/*! exports provided: default */
+/*! no static exports found */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
