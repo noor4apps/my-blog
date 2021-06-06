@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Database\Seeder;
+use App\Models\Permission;
 
 class PermissionTableSeeder extends Seeder
 {
@@ -12,9 +13,9 @@ class PermissionTableSeeder extends Seeder
     public function run()
     {
 
-        DB::statement('SET FOREIGN_KEY_CHECKS=0;');
+//        DB::statement('SET FOREIGN_KEY_CHECKS=0;');
 
-        DB::table('permissions')->truncate();
+//        DB::table('permissions')->truncate();
 
 
         // MAIN

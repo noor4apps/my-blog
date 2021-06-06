@@ -72,7 +72,14 @@ Route::group(['prefix' => 'admin'], function () {
         Route::get('/',                     ['as' => 'admin.index_route',     'uses' => 'Backend\AdminController@index']);
         Route::get('/index',                ['as' => 'admin.index',           'uses' => 'Backend\AdminController@index']);
 
-        Route::resource('posts', 'Backend\PostsController', ['as' => 'admin']);
+        Route::resource('posts',            'Backend\PostsController',          ['as' => 'admin']);
+        Route::resource('pages',            'Backend\PagesController',          ['as' => 'admin']);
+        Route::resource('post_comments',    'Backend\PostCommentsController',   ['as' => 'admin']);
+        Route::resource('post_categories',  'Backend\PostCategorisController',  ['as' => 'admin']);
+        Route::resource('users',            'Backend\UsersController',          ['as' => 'admin']);
+        Route::resource('contact_us',       'Backend\ContactUsController',      ['as' => 'admin']);
+        Route::resource('supervisor',       'Backend\SupervisorsController',    ['as' => 'admin']);
+        Route::resource('settings',         'Backend\SettingsController',       ['as' => 'admin']);
     });
 });
 
