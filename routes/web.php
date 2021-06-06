@@ -60,13 +60,13 @@ Route::group(['middleware' => 'verified'], function () {
 
 Route::group(['prefix' => 'admin'], function () {
     // Backend Authentication Routes...
-    Route::get('/login',                    ['as' => 'admin.show_login_form',     'uses' => 'Backend\Auth\LoginController@showLoginForm']);
-    Route::post('login',                    ['as' => 'admin.login',               'uses' => 'Backend\Auth\LoginController@login']);
-    Route::post('logout',                   ['as' => 'admin.logout',              'uses' => 'Backend\Auth\LoginController@logout']);
-    Route::get('password/reset',            ['as' => 'admin.password.request',    'uses' => 'Backend\Auth\ForgotPasswordController@showLinkRequestForm']);
-    Route::post('password/email',           ['as' => 'admin.password.email',      'uses' => 'Backend\Auth\ForgotPasswordController@sendResetLinkEmail']);
-    Route::get('password/reset/{token}',    ['as' => 'admin.password.reset',      'uses' => 'Backend\Auth\ResetPasswordController@showResetForm']);
-    Route::post('password/reset',           ['as' => 'admin.password.update',     'uses' => 'Backend\Auth\ResetPasswordController@reset']);
+    Route::get('/login',                    ['as' => 'admin.show_login_form',  'uses' => 'Backend\Auth\LoginController@showLoginForm']);
+    Route::post('login',                    ['as' => 'admin.login',            'uses' => 'Backend\Auth\LoginController@login']);
+    Route::post('logout',                   ['as' => 'admin.logout',           'uses' => 'Backend\Auth\LoginController@logout']);
+    Route::get('password/reset',            ['as' => 'password.request',       'uses' => 'Backend\Auth\ForgotPasswordController@showLinkRequestForm']);
+    Route::post('password/email',           ['as' => 'password.email',         'uses' => 'Backend\Auth\ForgotPasswordController@sendResetLinkEmail']);
+    Route::get('password/reset/{token}',    ['as' => 'password.reset',         'uses' => 'Backend\Auth\ResetPasswordController@showResetForm']);
+    Route::post('password/reset',           ['as' => 'password.update',        'uses' => 'Backend\Auth\ResetPasswordController@reset']);
 });
 
 Route::get('/contact-us',                   ['as' => 'frontend.contact',         'uses' => 'Frontend\IndexController@contact']);
