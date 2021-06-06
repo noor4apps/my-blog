@@ -1,5 +1,34 @@
 <?php
 
+use App\Models\Permission;
+
+function getParentShowOf($param)
+{
+    $f = str_replace('admin.', '', $param);
+    $perm = Permission::where('as', $f)->first();
+    return $perm ? $perm->parent_show : $f;
+}
+
+function getParentOf($param)
+{
+    $f = str_replace('admin.', '', $param);
+    $perm = Permission::where('as', $f)->first();
+    return $perm ? $perm->parent : $f;
+}
+
+function getParentIdOf($param)
+{
+    $f = str_replace('admin.', '', $param);
+    $perm = Permission::where('as', $f)->first();
+    return $perm ? $perm->id : null;
+}
+
+function getIdMenuOf($param)
+{
+    $perm = Permission::where('id', $param)->first();
+    return $perm ? $perm->parent_show : null;
+}
+
 /**
  * Get either a Gravatar URL or complete image tag for a specified email address.
  *
