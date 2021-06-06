@@ -67,6 +67,12 @@ Route::group(['prefix' => 'admin'], function () {
     Route::post('password/email',           ['as' => 'password.email',         'uses' => 'Backend\Auth\ForgotPasswordController@sendResetLinkEmail']);
     Route::get('password/reset/{token}',    ['as' => 'password.reset',         'uses' => 'Backend\Auth\ResetPasswordController@showResetForm']);
     Route::post('password/reset',           ['as' => 'password.update',        'uses' => 'Backend\Auth\ResetPasswordController@reset']);
+
+    Route::group(['middleware' => ['roles', 'role:admin|editor']], function () {
+        Route::get('/',                     ['as' => 'admin.index_route',     'uses' => 'Backend\AdminController@index']);
+        Route::get('/index',                ['as' => 'admin.index',           'uses' => 'Backend\AdminController@index']);
+
+    });
 });
 
 Route::get('/contact-us',                   ['as' => 'frontend.contact',         'uses' => 'Frontend\IndexController@contact']);

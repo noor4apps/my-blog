@@ -16,6 +16,8 @@
 
     <!-- Custom styles for this template-->
     <link href="{{ asset('backend/css/sb-admin-2.min.css') }}" rel="stylesheet">
+    <link href="{{ asset('backend/vendor/bootstrap-fileinput/css/fileinput.min.css') }}" rel="stylesheet">
+    <link href="{{ asset('backend/vendor/summernote/summernote-bs4.min.css') }}" rel="stylesheet">
     @yield('style')
 </head>
 <body id="page-top">
@@ -138,18 +140,14 @@
                     <button class="rounded-circle border-0" id="sidebarToggle"></button>
                 </div>
 
-                <!-- Sidebar Message -->
-                <div class="sidebar-card">
-                    <img class="sidebar-card-illustration mb-2" src="img/undraw_rocket.svg" alt="">
-                    <p class="text-center mb-2"><strong>SB Admin Pro</strong> is packed with premium features, components, and more!</p>
-                    <a class="btn btn-success btn-sm" href="https://startbootstrap.com/theme/sb-admin-pro">Upgrade to Pro!</a>
-                </div>
 
             </ul>
             <!-- End of Sidebar -->
 
             <!-- Content Wrapper -->
             <div id="content-wrapper" class="d-flex flex-column">
+
+                @include('partial.backend.header')
 
                 <!-- Main Content -->
                 <div id="content">
