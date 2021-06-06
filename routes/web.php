@@ -72,6 +72,7 @@ Route::group(['prefix' => 'admin'], function () {
         Route::get('/',                     ['as' => 'admin.index_route',     'uses' => 'Backend\AdminController@index']);
         Route::get('/index',                ['as' => 'admin.index',           'uses' => 'Backend\AdminController@index']);
 
+        Route::resource('posts', 'Backend\PostsController', ['as' => 'admin']);
     });
 });
 
