@@ -38,6 +38,11 @@ class Post extends Model
         return $query->where('post_type', 'post');
     }
 
+    public function status()
+    {
+        return $this->status == 1 ? 'Active' : 'Inactive';
+    }
+
     public function category()
     {
         return $this->belongsTo(Category::class);
