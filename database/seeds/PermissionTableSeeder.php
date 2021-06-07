@@ -13,9 +13,9 @@ class PermissionTableSeeder extends Seeder
     public function run()
     {
 
-//        DB::statement('SET FOREIGN_KEY_CHECKS=0;');
+        DB::statement('SET FOREIGN_KEY_CHECKS=0;');
 
-//        DB::table('permissions')->truncate();
+        DB::table('permissions')->truncate();
 
 
         // MAIN
@@ -56,7 +56,7 @@ class PermissionTableSeeder extends Seeder
         $updatePages = Permission::create([ 'name' => 'update_pages', 'display_name' => 'Update Page', 'route' => 'pages/{pages}/edit', 'module' => 'pages', 'as' => 'pages.edit', 'icon' => null, 'parent' => $managePages->id, 'parent_show' => $managePages->id, 'parent_original' => $managePages->id, 'appear' => '0', 'ordering' => '0', ]);
         $destroyPages = Permission::create([ 'name' => 'delete_pages', 'display_name' => 'Delete Page', 'route' => 'pages/{pages}', 'module' => 'pages', 'as' => 'pages.delete', 'icon' => null, 'parent' => $managePages->id, 'parent_show' => $managePages->id, 'parent_original' => $managePages->id, 'appear' => '0', 'ordering' => '0', ]);
 
-        $manageContactUs = Permission::create([ 'name' => 'manage_contact_us', 'display_name' => 'Contact Us', 'route' => 'contact_us', 'module' => 'contact_us', 'as' => 'contact_us.index', 'icon' => 'fas fa-envelope', 'parent' => '0', 'parent_original' => '0', 'appear' => '1', 'ordering' => '20', ]);
+        $manageContactUs = Permission::create([ 'name' => 'manage_contact_us', 'display_name' => 'Contact Us', 'route' => 'contact_us', 'module' => 'contact_us', 'as' => 'contact_us.index', 'icon' => 'fas fa-envelope', 'parent' => '0', 'parent_original' => '0', 'appear' => '1', 'ordering' => '25', ]);
         $manageContactUs->parent_show = $manageContactUs->id; $manageContactUs->save();
         $showContactUs = Permission::create([ 'name' => 'show_contact_us', 'display_name' => 'Contact Us', 'route' => 'contact_us', 'module' => 'contact_us', 'as' => 'contact_us.index', 'icon' => 'fas fa-envelope', 'parent' => $manageContactUs->id, 'parent_show' => $manageContactUs->id, 'parent_original' => $manageContactUs->id, 'appear' => '1', 'ordering' => '0', ]);
         $displayContactUs = Permission::create([ 'name' => 'display_contact_us', 'display_name' => 'Display Message', 'route' => 'contact_us/{contact_us}', 'module' => 'contact_us', 'as' => 'contact_us.show', 'icon' => null, 'parent' => $manageContactUs->id, 'parent_show' => $manageContactUs->id, 'parent_original' => $manageContactUs->id, 'appear' => '0', 'ordering' => '0',]);
@@ -64,7 +64,7 @@ class PermissionTableSeeder extends Seeder
         $destroyContactUs = Permission::create([ 'name' => 'delete_contact_us', 'display_name' => 'Delete Message', 'route' => 'contact_us/{contact_us}', 'module' => 'contact_us', 'as' => 'contact_us.delete', 'icon' => null, 'parent' => $manageContactUs->id, 'parent_show' => $manageContactUs->id, 'parent_original' => $manageContactUs->id, 'appear' => '0', 'ordering' => '0', ]);
 
         // USERS
-        $manageUsers = Permission::create([ 'name' => 'manage_users', 'display_name' => 'Users', 'route' => 'users', 'module' => 'users', 'as' => 'users.index', 'icon' => 'fas fa-user', 'parent' => '0', 'parent_original' => '0', 'appear' => '1', 'ordering' => '20', ]);
+        $manageUsers = Permission::create([ 'name' => 'manage_users', 'display_name' => 'Users', 'route' => 'users', 'module' => 'users', 'as' => 'users.index', 'icon' => 'fas fa-user', 'parent' => '0', 'parent_original' => '0', 'appear' => '1', 'ordering' => '30', ]);
         $manageUsers->parent_show = $manageUsers->id; $manageUsers->save();
         $showUsers = Permission::create([ 'name' => 'show_users', 'display_name' => 'Users', 'route' => 'users', 'module' => 'users', 'as' => 'users.index', 'icon' => 'fas fa-user', 'parent' => $manageUsers->id, 'parent_show' => $manageUsers->id, 'parent_original' => $manageUsers->id, 'appear' => '1', 'ordering' => '0', ]);
         $createUsers = Permission::create([ 'name' => 'create_users', 'display_name' => 'Create User', 'route' => 'users/create', 'module' => 'users', 'as' => 'users.create', 'icon' => null, 'parent' => $manageUsers->id, 'parent_show' => $manageUsers->id, 'parent_original' => $manageUsers->id, 'appear' => '0', 'ordering' => '0',]);
@@ -75,7 +75,7 @@ class PermissionTableSeeder extends Seeder
 
         // EDITORS
         // SUPERVISORS
-        $manageSupervisors = Permission::create([ 'name' => 'manage_supervisors', 'display_name' => 'Supervisors', 'route' => 'supervisor', 'module' => 'supervisor', 'as' => 'supervisor.index', 'icon' => 'fas fa-user-shield', 'parent' => '0', 'parent_original' => '0', 'appear' => '0', 'ordering' => '700', 'sidebar_link' => '0']);
+        $manageSupervisors = Permission::create([ 'name' => 'manage_supervisors', 'display_name' => 'Supervisors', 'route' => 'supervisor', 'module' => 'supervisor', 'as' => 'supervisor.index', 'icon' => 'fas fa-user-shield', 'parent' => '0', 'parent_original' => '0', 'appear' => '0', 'ordering' => '35', 'sidebar_link' => '0']);
         $manageSupervisors->parent_show = $manageSupervisors->id; $manageSupervisors->save();
         $showSupervisors = Permission::create([ 'name' => 'show_supervisors', 'display_name' => 'Supervisors', 'route' => 'supervisor', 'module' => 'supervisor', 'as' => 'supervisor.index', 'icon' => 'fas fa-user-shield', 'parent' => $manageSupervisors->id, 'parent_show' => $manageSupervisors->id, 'parent_original' => $manageSupervisors->id, 'appear' => '1', 'ordering' => '0', 'sidebar_link' => '0']);
         $createSupervisors = Permission::create([ 'name' => 'create_supervisors', 'display_name' => 'Create Supervisor', 'route' => 'supervisor/create', 'module' => 'supervisor', 'as' => 'supervisor.create', 'icon' => null, 'parent' => $manageSupervisors->id, 'parent_show' => $manageSupervisors->id, 'parent_original' => $manageSupervisors->id, 'appear' => '0', 'ordering' => '0', 'sidebar_link' => '0']);
@@ -84,7 +84,7 @@ class PermissionTableSeeder extends Seeder
         $destroySupervisors = Permission::create([ 'name' => 'delete_supervisors', 'display_name' => 'Delete Supervisor', 'route' => 'supervisor/{supervisor}', 'module' => 'supervisor', 'as' => 'supervisor.delete', 'icon' => null, 'parent' => $manageSupervisors->id, 'parent_show' => $manageSupervisors->id, 'parent_original' => $manageSupervisors->id, 'appear' => '0', 'ordering' => '0', 'sidebar_link' => '0']);
 
         // SETTINGS
-        $manageSettings = Permission::create([ 'name' => 'manage_settings', 'display_name' => 'Settings', 'route' => 'settings', 'module' => 'settings', 'as' => 'settings.index', 'icon' => 'fas fa-cog', 'parent' => '0', 'parent_original' => '0', 'appear' => '0', 'ordering' => '600', 'sidebar_link' => '0']);
+        $manageSettings = Permission::create([ 'name' => 'manage_settings', 'display_name' => 'Settings', 'route' => 'settings', 'module' => 'settings', 'as' => 'settings.index', 'icon' => 'fas fa-cog', 'parent' => '0', 'parent_original' => '0', 'appear' => '0', 'ordering' => '40', 'sidebar_link' => '0']);
         $manageSettings->parent_show = $manageSettings->id; $manageSettings->save();
         $showSettings = Permission::create([ 'name' => 'show_settings', 'display_name' => 'Settings', 'route' => 'settings', 'module' => 'settings', 'as' => 'settings.index', 'icon' => 'fas fa-cog', 'parent' => $manageSettings->id, 'parent_show' => $manageSettings->id, 'parent_original' => $manageSettings->id, 'appear' => '1', 'ordering' => '0', 'sidebar_link' => '0']);
         $createSettings = Permission::create([ 'name' => 'create_settings', 'display_name' => 'Create Settings', 'route' => 'settings/create', 'module' => 'settings', 'as' => 'settings.create', 'icon' => null, 'parent' => $manageSettings->id, 'parent_show' => $manageSettings->id, 'parent_original' => $manageSettings->id, 'appear' => '0', 'ordering' => '0', 'sidebar_link' => '0']);
