@@ -95,6 +95,4 @@
         </div>
     </div>
 
-    <!-- Content Row -->
-    <div class="row">
 @endsection
