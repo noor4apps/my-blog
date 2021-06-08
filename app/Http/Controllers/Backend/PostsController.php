@@ -15,16 +15,53 @@ use Stevebauman\Purify\Facades\Purify;
 
 class PostsController extends Controller
 {
+    public function __construct()
+    {
+        if (\auth()->check()){
+            $this->middleware('auth');
+        } else {
+            return view('backend.auth.login');
+        }
+    }
 
     public function index()
     {
-        $posts = Post::with(['user', 'category', 'comments'])->post()->orderBy('id', 'desc')->paginate(10);
+        if (!\auth()->user()->ability('admin', 'manage_posts,show_posts')) {
+            return redirect('admin/index');
+        }
 
-        return view('backend.posts.index', compact('posts'));
+        $keyword = (isset(\request()->keyword) && \request()->keyword != '') ? \request()->keyword : null;
+        $categoryId = (isset(\request()->category_id) && \request()->category_id != '') ? \request()->category_id : null;
+        $status = (isset(\request()->status) && \request()->status != '') ? \request()->status : null;
+        $sort_by = (isset(\request()->sort_by) && \request()->sort_by != '') ? \request()->sort_by : 'id';
+        $order_by = (isset(\request()->order_by) && \request()->order_by != '') ? \request()->order_by : 'desc';
+        $limit_by = (isset(\request()->limit_by) && \request()->limit_by != '') ? \request()->limit_by : '10';
+
+        $posts = Post::with(['user', 'category', 'comments'])->wherePostType('post');
+
+        if ($keyword != null) {
+            $posts = $posts->search($keyword);
+        }
+        if ($categoryId != null) {
+            $posts = $posts->whereCategoryId($categoryId);
+        }
+        if ($status != null) {
+            $posts = $posts->whereStatus($status);
+        }
+        $posts = $posts->orderBy($sort_by, $order_by);
+        $posts = $posts->paginate($limit_by);
+
+        $categories = Category::orderBy('id', 'desc')->pluck('name', 'id');
+
+        return view('backend.posts.index', compact('posts', 'categories'));
     }
 
     public function create()
     {
+        if (!\auth()->user()->ability('admin', 'create_posts')) {
+            return redirect('admin/index');
+        }
+
         $categories = Category::orderBy('id', 'desc')->pluck('name', 'id');
 
         return view('backend.posts.create', compact('categories'));
@@ -33,6 +70,10 @@ class PostsController extends Controller
     public function store(Request $request)
 
     {
+        if (!\auth()->user()->ability('admin', 'create_posts')) {
+            return redirect('admin/index');
+        }
+
         $validation = Validator::make($request->all(), [
             'title' => 'required',
             'description' => 'required|min:30',
@@ -85,6 +126,10 @@ class PostsController extends Controller
 
     public function show($id)
     {
+        if (!\auth()->user()->ability('admin', 'display_posts')) {
+            return redirect('admin/index');
+        }
+
         $post = Post::with(['media', 'category', 'user', 'comments'])->whereId($id)->post()->first();
 
         return view('backend.posts.show', compact('post'));
@@ -92,6 +137,10 @@ class PostsController extends Controller
 
     public function edit($id)
     {
+        if (!\auth()->user()->ability('admin', 'update_posts')) {
+            return redirect('admin/index');
+        }
+
         $post = Post::with(['media'])->whereId($id)->post()->first();
 
         $categories = Category::orderBy('id', 'desc')->pluck('name', 'id');
@@ -101,6 +150,10 @@ class PostsController extends Controller
 
     public function update(Request $request, $id)
     {
+        if (!\auth()->user()->ability('admin', 'update_posts')) {
+            return redirect('admin/index');
+        }
+
         $validation = Validator::make($request->all(), [
             'title' => 'required',
             'description' => 'required|min:30',
@@ -162,8 +215,11 @@ class PostsController extends Controller
     }
 
     public function destroy($id)
-
     {
+        if (!\auth()->user()->ability('admin', 'delete_posts')) {
+            return redirect('admin/index');
+        }
+
         $post = Post::with(['media'])->whereId($id)->post()->first();
 
         if ($post) {
@@ -195,6 +251,10 @@ class PostsController extends Controller
 
     public function removeImage($media_id)
     {
+        if (!\auth()->user()->ability('admin', 'delete_posts')) {
+            return redirect('admin/index');
+        }
+
         $media = PostMedia::whereId($media_id)->first();
         if($media) {
             if(File::exists('assets/posts/' . $media->file_name)) {

@@ -13,6 +13,7 @@
                 </a>
             </div>
         </div>
+        @include('backend.posts.filter.filter')
         <div class="table-responsive">
                 <table class="table table-hover">
                     <thead>
@@ -34,9 +35,9 @@
                                 {{ Str::limit($post->title, 25, ' ...') }}
                             </a>
                         </td>
-                        <td>{{ $post->comment_able == 1 ? $post->comments->count() : 'Disallow' }}</td>
+                        <td>{!!  $post->comment_able == 1 ? '<a href="'.route('admin.post_comments.index', ['post_id'=>$post->id]).'">' . $post->comments->count() . '</a>' : 'Disallow'  !!}</td>
                         <td>{{ $post->status() }}</td>
-                        <td>{{ $post->category->name }}</td>
+                        <td><a href="{{ route('admin.posts.index', ['category_id'=>$post->category_id]) }}">{{ $post->category->name }}</a></td>
                         <td>{{ $post->user->username }}</td>
                         <td>{{ $post->created_at->format('Y m d h:i a') }}</td>
                         <td>
