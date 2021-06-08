@@ -83,15 +83,11 @@ class PostsController extends Controller
 
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function show($id)
     {
-        //
+        $post = Post::with(['media', 'category', 'user', 'comments'])->whereId($id)->post()->first();
+
+        return view('backend.posts.show', compact('post'));
     }
 
     public function edit($id)
@@ -165,15 +161,36 @@ class PostsController extends Controller
 
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function destroy($id)
+
     {
-        //
+        $post = Post::with(['media'])->whereId($id)->post()->first();
+
+        if ($post) {
+            // delete files
+            if($post->media->count() > 0) {
+                foreach ($post->media as $media) {
+                    if(File::exists('assets/posts/' . $media->file_name)) {
+                        unlink('assets/posts/' . $media->file_name);
+                    }
+                }
+            }
+            // When the post is deleted, post_media(photos) and comments will be deleted due to a table DB their cascade On Delete
+            $post->delete();
+
+            Cache::forget('recent_posts');
+
+            return redirect()->route('admin.posts.index')->with([
+                'message' => 'Post deleted successfully.',
+                'alert-type' => 'success',
+            ]);
+        }
+
+        return redirect()->back()->with([
+            'message' => 'Something was wrong.',
+            'alert-type' => 'danger',
+        ]);
+
     }
 
     public function removeImage($media_id)

@@ -29,7 +29,11 @@
                     <tbody>
                     @forelse($posts as $post)
                     <tr>
-                        <td>{{ Str::limit($post->title, 25, ' ...') }}</td>
+                        <td>
+                            <a href="{{ route('admin.posts.show', $post->id) }}">
+                                {{ Str::limit($post->title, 25, ' ...') }}
+                            </a>
+                        </td>
                         <td>{{ $post->comment_able == 1 ? $post->comments->count() : 'Disallow' }}</td>
                         <td>{{ $post->status() }}</td>
                         <td>{{ $post->category->name }}</td>
