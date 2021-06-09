@@ -197,9 +197,8 @@ class PostsController extends Controller
                 }
             }
 
-            if($request->status == 1) {
-                Cache::forget('recent_posts');
-            }
+            Cache::forget('recent_posts');
+
 
             return redirect()->route('admin.posts.index')->with([
                 'message' => 'Post updated successfully.',

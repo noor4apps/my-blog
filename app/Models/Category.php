@@ -4,10 +4,11 @@ namespace App\Models;
 
 use Cviebrock\EloquentSluggable\Sluggable;
 use Illuminate\Database\Eloquent\Model;
+use Nicolaslopezj\Searchable\SearchableTrait;
 
 class Category extends Model
 {
-    use Sluggable;
+    use Sluggable, SearchableTrait;
 
     protected $guarded = [];
 
@@ -18,6 +19,18 @@ class Category extends Model
                 'source' => 'name'
             ]
         ];
+    }
+
+    protected $searchable = [
+        'columns' => [
+            'categories.name' => 10,
+            'categories.slug' => 10,
+        ],
+    ];
+
+    public function status()
+    {
+        return $this->status == 1 ? 'Active' : 'Inactive';
     }
 
     public function posts()
