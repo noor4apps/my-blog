@@ -83,6 +83,7 @@ Route::group(['prefix' => 'admin'], function () {
 
         Route::resource('contact_us',       'Backend\ContactUsController',      ['as' => 'admin']);
 
+        Route::post('/users/removeImage',  ['as' => 'admin.users.remove_image', 'uses' => 'Backend\UsersController@removeImage']);
         Route::resource('users',            'Backend\UsersController',          ['as' => 'admin']);
         Route::resource('supervisor',       'Backend\SupervisorsController',    ['as' => 'admin']);
         Route::resource('settings',         'Backend\SettingsController',       ['as' => 'admin']);
