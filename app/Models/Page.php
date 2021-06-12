@@ -4,11 +4,11 @@ namespace App\Models;
 
 use Cviebrock\EloquentSluggable\Sluggable;
 use Illuminate\Database\Eloquent\Model;
+use Nicolaslopezj\Searchable\SearchableTrait;
 
 class Page extends Model
 {
-    use Sluggable;
-
+    use Sluggable, SearchableTrait;
     protected $table = 'posts';
     protected $guarded = [];
 
@@ -19,6 +19,23 @@ class Page extends Model
                 'source' => 'title'
             ]
         ];
+    }
+
+    protected $searchable = [
+        'columns' => [
+            'posts.title' => 10,
+            'posts.description' => 10,
+        ],
+    ];
+
+    public function scopePage($query)
+    {
+        return $query->where('post_type', 'page');
+    }
+
+    public function status()
+    {
+        return $this->status == 1 ? 'Active' : 'Inactive';
     }
 
     public function category()
