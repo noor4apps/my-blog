@@ -85,7 +85,9 @@ Route::group(['prefix' => 'admin'], function () {
 
         Route::post('/users/removeImage',  ['as' => 'admin.users.remove_image', 'uses' => 'Backend\UsersController@removeImage']);
         Route::resource('users',            'Backend\UsersController',          ['as' => 'admin']);
-        Route::resource('supervisor',       'Backend\SupervisorsController',    ['as' => 'admin']);
+
+        Route::post('/supervisors/removeImage',  ['as' => 'admin.supervisors.remove_image', 'uses' => 'Backend\supervisorsController@removeImage']);
+        Route::resource('supervisors',       'Backend\SupervisorsController',    ['as' => 'admin']);
         Route::resource('settings',         'Backend\SettingsController',       ['as' => 'admin']);
     });
 });

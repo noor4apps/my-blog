@@ -10,6 +10,14 @@
     <ul class="navbar-nav ml-auto">
 
         <!-- Nav Item - Alerts -->
+        @if(auth()->user()->ability('admin', 'manage_supervisors,show_supervisors'))
+        <li class="nav-item">
+            <a class="nav-link" href="{{ route('admin.supervisors.index') }}">
+                Supervisors
+            </a>
+        </li>
+        @endif
+
         <li class="nav-item dropdown no-arrow mx-1">
             <a class="nav-link dropdown-toggle" href="#" id="alertsDropdown" role="button"
                data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
