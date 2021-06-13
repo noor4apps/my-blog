@@ -3,13 +3,13 @@
 
     <div class="card shadow mb-4">
         <div class="card-header py-3 d-flex">
-            <h6 class="m-0 font-weight-bold text-primary">User ({{ $user->name }})</h6>
+            <h6 class="m-0 font-weight-bold text-primary">Supervisors ({{ $user->name }})</h6>
             <div class="ml-auto">
-                <a href="{{ route('admin.users.index') }}" class="btn btn-primary">
+                <a href="{{ route('admin.supervisors.index') }}" class="btn btn-primary">
                     <span class="icon text-white-50">
                         <i class="fa fa-home"></i>
                     </span>
-                    <span class="text">Users</span>
+                    <span class="text">Supervisors</span>
                 </a>
             </div>
         </div>
