@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Backend;
 
 use App\Http\Controllers\Controller;
 use App\Models\Permission;
+use App\Models\UserPermission;
 use App\Models\Role;
 use App\Models\User;
 use Carbon\Carbon;
@@ -74,6 +75,7 @@ class SupervisorsController extends Controller
             'mobile'        => 'required|numeric|unique:users',
             'status'        => 'required',
             'password'      => 'required|min:8',
+            'permission.*'   => 'required'
         ]);
         if($validator->fails()) {
             return redirect()->back()->withErrors($validator)->withInput();
@@ -99,7 +101,11 @@ class SupervisorsController extends Controller
         }
 
         $user = User::create($data);
-        $user->attachRole(Role::whereName('user')->first()->id);
+        $user->attachRole(Role::whereName('editor')->first()->id);
+
+        if(isset($request->permissions) && count($request->permissions) > 0) {
+            $user->permissions()->sync($request->permissions);
+        }
 
         return redirect()->route('admin.supervisors.index')->with([
             'message' => 'Users created successfully',
@@ -133,8 +139,8 @@ class SupervisorsController extends Controller
         $user = User::whereId($id)->first();
         if ($user) {
             $permissions = Permission::pluck('display_name', 'id');
-            $userPermission = UserPermission::whereUserId($id)->pluck('permission_id');
-            return view('backend.supervisors.edit', compact('user', 'permissions', 'userPermission'));
+            $userPermissions = UserPermission::whereUserId($id)->pluck('permission_id');
+            return view('backend.supervisors.edit', compact('user', 'permissions', 'userPermissions'));
         }
         return redirect()->route('admin.supervisors.index')->with([
             'message' => 'Something was wrong',
@@ -189,6 +195,10 @@ class SupervisorsController extends Controller
             }
 
             $user->update($data);
+
+            if(isset($request->permissions) && count($request->permissions) > 0) {
+                $user->permissions()->sync($request->permissions);
+            }
 
             return redirect()->route('admin.supervisors.index')->with([
                 'message' => 'User updated successfully',

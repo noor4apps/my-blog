@@ -1,21 +1,28 @@
 @extends('layouts.admin')
+
+@section('style')
+    <link rel="stylesheet" href="{{ asset('backend/vendors/bootstrap-fileinput/css/fileinput.min.css') }}">
+
+    <link rel="stylesheet" href="{{ asset('backend/vendors/select2/css/select2.min.css') }}">
+@endsection
+
 @section('content')
 
     <div class="card shadow mb-4">
         <div class="card-header py-3 d-flex">
-            <h6 class="m-0 font-weight-bold text-primary">Edit user ({{ $user->name }})</h6>
+            <h6 class="m-0 font-weight-bold text-primary">Edit supervisor ({{ $user->name }})</h6>
             <div class="ml-auto">
-                <a href="{{ route('admin.users.index') }}" class="btn btn-primary">
+                <a href="{{ route('admin.supervisors.index') }}" class="btn btn-primary">
                     <span class="icon text-white-50">
                         <i class="fa fa-home"></i>
                     </span>
-                    <span class="text">Users</span>
+                    <span class="text">Supervisors</span>
                 </a>
             </div>
         </div>
         <div class="card-body">
 
-            {{ Form::model($user, ['route' => ['admin.users.update', $user->id], 'method' => 'patch', 'files' => true]) }}
+            {{ Form::model($user, ['route' => ['admin.supervisors.update', $user->id], 'method' => 'patch', 'files' => true]) }}
             <div class="row">
                 <div class="col-3">
                     <div class="form-group">
@@ -82,6 +89,16 @@
                 </div>
             </div>
 
+            <div class="row">
+                <div class="col-12">
+                    <div class="form-group">
+                        {{ Form::label('permissions', 'Permissions') }}
+                        {{ Form::select('permissions[]', [] + $permissions->toArray(), old('permissions', $userPermissions), ['class' => 'form-control select-multiple-tags', 'multiple' => 'multiple']) }}
+                        @error('permissions')<span class="text-danger">{{ $message }}</span>@enderror
+                    </div>
+                </div>
+            </div>
+
             <div class="row pt-4">
                 @if ($user->user_image != '')
                     <div class="col-12 text-center">
@@ -116,6 +133,9 @@
     <script src="{{ asset('backend/vendors/bootstrap-fileinput/js/plugins/purify.min.js') }}"></script>
     <script src="{{ asset('backend/vendors/bootstrap-fileinput/js/fileinput.min.js') }}"></script>
     <script src="{{ asset('backend/vendors/bootstrap-fileinput/themes/fas/theme.js') }}"></script>
+
+    <script src="{{ asset('backend/vendors/select2/js/select2.full.min.js') }}"></script>
+
     <script>
         $(function () {
             $('#user-image').fileinput({
@@ -129,11 +149,17 @@
             });
 
             $('.removeImage').click(function () {
-                $.post('{{ route("admin.users.remove_image") }}', { user_id: '{{ $user->id }}', _token: '{{ csrf_token() }}' }, function (data) {
+                $.post('{{ route("admin.supervisors.remove_image") }}', { user_id: '{{ $user->id }}', _token: '{{ csrf_token() }}' }, function (data) {
                     if (data == 'true') {
                         window.location.href = window.location;
                     }
                 })
+            });
+
+            $('.select-multiple-tags').select2({
+                minimumResultsForSearch: Infinity,
+                tags: true,
+                closeOnSelect:false
             });
 
         });

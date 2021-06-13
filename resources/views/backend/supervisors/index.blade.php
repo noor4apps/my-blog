@@ -3,17 +3,17 @@
 @section('content')
     <div class="card shadow mb-4">
         <div class="card-header py-3 d-flex">
-            <h6 class="m-0 font-weight-bold text-primary">Users</h6>
+            <h6 class="m-0 font-weight-bold text-primary">Supervisors</h6>
             <div class="ml-auto">
-                <a href="{{ route('admin.users.create') }}" class="btn btn-primary">
+                <a href="{{ route('admin.supervisors.create') }}" class="btn btn-primary">
                     <span class="icon text-white-50">
                         <i class="fa fa-plus"></i>
                     </span>
-                    <span class="text">Add New User</span>
+                    <span class="text">Add New Supervisor</span>
                 </a>
             </div>
         </div>
-        @include('backend.users.filter.filter')
+        @include('backend.supervisors.filter.filter')
         <div class="table-responsive">
                 <table class="table table-hover">
                     <thead>
@@ -37,7 +37,7 @@
                             @endif
                         </td>
                         <td>
-                            <a href="{{ route('admin.users.show', $user->id) }}">{{ $user->name }}</a>
+                            <a href="{{ route('admin.supervisors.show', $user->id) }}">{{ $user->name }}</a>
                             <p class="text-gray-400">{{ $user->username }}</p>
                         </td>
                         <td>
@@ -48,9 +48,9 @@
                         <td>{{ $user->created_at->format('Y m d h:i a') }}</td>
                         <td>
                             <div class="btn-group">
-                                <a href="{{ route('admin.users.edit', $user->id) }}" class="btn btn-sm btn-primary"><i class="fa fa-edit"></i></a>
-                                <a href="javascript:void(0)" class="btn btn-sm btn-danger" onclick="if(confirm('Are you sure to delete this user?')) { document.getElementById('user-delete-{{ $user->id }}').submit(); } else { return false; }"><i class="fa fa-trash"></i></a>
-                                <form action="{{ route('admin.users.destroy', $user->id) }}" method="post" id="user-delete-{{ $user->id }}">
+                                <a href="{{ route('admin.supervisors.edit', $user->id) }}" class="btn btn-sm btn-primary"><i class="fa fa-edit"></i></a>
+                                <a href="javascript:void(0)" class="btn btn-sm btn-danger" onclick="if(confirm('Are you sure to delete this supervisor?')) { document.getElementById('supervisor-delete-{{ $user->id }}').submit(); } else { return false; }"><i class="fa fa-trash"></i></a>
+                                <form action="{{ route('admin.supervisors.destroy', $user->id) }}" method="post" id="supervisor-delete-{{ $user->id }}">
                                     @csrf
                                     @method('DELETE')
                                 </form>
@@ -59,7 +59,7 @@
                     </tr>
                     @empty
                         <tr>
-                            <td colspan="6" class="text-center">No users found!</td>
+                            <td colspan="6" class="text-center">No supervisors found!</td>
                         </tr>
                     @endforelse
                     </tbody>

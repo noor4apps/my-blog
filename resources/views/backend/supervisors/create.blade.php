@@ -2,23 +2,25 @@
 
 @section('style')
     <link rel="stylesheet" href="{{ asset('backend/vendors/bootstrap-fileinput/css/fileinput.min.css') }}">
+
+    <link rel="stylesheet" href="{{ asset('backend/vendors/select2/css/select2.min.css') }}">
 @endsection
 
 @section('content')
     <div class="card shadow mb-4">
         <div class="card-header py-3 d-flex">
-            <h6 class="m-0 font-weight-bold text-primary">Create user</h6>
+            <h6 class="m-0 font-weight-bold text-primary">Create supervisor</h6>
             <div class="ml-auto">
-                <a href="{{ route('admin.users.index') }}" class="btn btn-primary">
+                <a href="{{ route('admin.supervisors.index') }}" class="btn btn-primary">
                     <span class="icon text-white-50">
                         <i class="fa fa-home"></i>
                     </span>
-                    <span class="text">Users</span>
+                    <span class="text">Supervisors</span>
                 </a>
             </div>
         </div>
         <div class="card-body">
-            {{ Form::open(['route' => 'admin.users.store', 'method' => 'post', 'files' => true]) }}
+            {{ Form::open(['route' => 'admin.supervisors.store', 'method' => 'post', 'files' => true]) }}
             <div class="row">
                 <div class="col-3">
                     <div class="form-group">
@@ -83,6 +85,16 @@
                 </div>
             </div>
 
+            <div class="row">
+                <div class="col-12">
+                    <div class="form-group">
+                        {{ Form::label('permissions', 'Permissions') }}
+                        {{ Form::select('permissions[]', [] + $permissions->toArray(), old('permissions'), ['class' => 'form-control select-multiple-tags', 'multiple' => 'multiple']) }}
+                        @error('permissions')<span class="text-danger">{{ $message }}</span>@enderror
+                    </div>
+                </div>
+            </div>
+
             <div class="row py-4">
                 <div class="col-12">
                     {{ Form::label('User Image', 'user_image') }}
@@ -110,8 +122,17 @@
     <script src="{{ asset('backend/vendors/bootstrap-fileinput/js/fileinput.min.js') }}"></script>
     <script src="{{ asset('backend/vendors/bootstrap-fileinput/themes/fas/theme.js') }}"></script>
 
+    <script src="{{ asset('backend/vendors/select2/js/select2.full.min.js') }}"></script>
+
     <script>
         $(function () {
+
+            $('.select-multiple-tags').select2({
+                minimumResultsForSearch: Infinity,
+                tags: true,
+                closeOnSelect:false
+            });
+
             $('#user-image').fileinput({
                 theme: "fas",
                 maxFileCount: 1,
@@ -121,6 +142,7 @@
                 showUpload: false,
                 overwriteInitial: false,
             });
+
         });
     </script>
 @endsection

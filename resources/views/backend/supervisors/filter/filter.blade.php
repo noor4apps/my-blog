@@ -1,5 +1,5 @@
 <div class="card-body">
-    {{ Form::open(['route' => 'admin.users.index', 'method' => 'get']) }}
+    {{ Form::open(['route' => 'admin.supervisors.index', 'method' => 'get']) }}
         <div class="row">
             <div class="col-2">
                 <div class="form-group">

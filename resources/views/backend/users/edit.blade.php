@@ -1,4 +1,9 @@
 @extends('layouts.admin')
+
+@section('style')
+    <link rel="stylesheet" href="{{ asset('backend/vendors/bootstrap-fileinput/css/fileinput.min.css') }}">
+@endsection
+
 @section('content')
 
     <div class="card shadow mb-4">
@@ -134,6 +139,29 @@
                         window.location.href = window.location;
                     }
                 })
+            });
+
+        });
+    </script>
+@endsection
+
+@section('script')
+    <script src="{{ asset('backend/vendors/bootstrap-fileinput/js/plugins/piexif.min.js') }}"></script>
+    <script src="{{ asset('backend/vendors/bootstrap-fileinput/js/plugins/sortable.min.js') }}"></script>
+    <script src="{{ asset('backend/vendors/bootstrap-fileinput/js/plugins/purify.min.js') }}"></script>
+    <script src="{{ asset('backend/vendors/bootstrap-fileinput/js/fileinput.min.js') }}"></script>
+    <script src="{{ asset('backend/vendors/bootstrap-fileinput/themes/fas/theme.js') }}"></script>
+
+    <script>
+        $(function () {
+            $('#user-image').fileinput({
+                theme: "fas",
+                maxFileCount: 1,
+                allowedFileTypes: ['image'],
+                showCancel: true,
+                showRemove: false,
+                showUpload: false,
+                overwriteInitial: false,
             });
 
         });
