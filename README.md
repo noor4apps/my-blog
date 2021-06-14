@@ -60,6 +60,9 @@ Super Simple WYSIWYG, Editor on Bootstrap
 [File Input](https://plugins.krajee.com/file-input)
 An enhanced HTML 5 file input for Bootstrap 5.x/4.x./3.x with file preview, multiple selection, and more features.
 
+###select2/select2
+[Select2](https://github.com/select2/select2)
+is a jQuery based replacement for select boxes. It supports searching, remote data sets, and infinite scrolling of results.
 ##Themes
 
 ###Frontend Theme

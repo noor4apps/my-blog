@@ -38,6 +38,16 @@
                     <td>{{ $user->status() }}</td>
                 </tr>
                 <tr>
+                    <th>Role:</th>
+                    <td>{{ $user->roles()->first()->name }}</td>
+                    <th>Permission: </th>
+                    <td>
+                    @foreach($userPermissionDisplay as $per => $v)
+                        <span class="badge badge-pill badge-info">{{ $v }}</span>
+                    @endforeach
+                    </td>
+                </tr>
+                <tr>
                     <th>Created date</th>
                     <td>{{ $user->created_at->format('d-m-Y h:i a') }}</td>
                     <th>Posts Count</th>

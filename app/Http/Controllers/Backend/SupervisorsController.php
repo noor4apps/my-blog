@@ -120,8 +120,12 @@ class SupervisorsController extends Controller
         }
 
         $user = User::whereId($id)->first();
+
+        $userPermissionId = UserPermission::whereUserId($id)->pluck('permission_id');
+        $userPermissionDisplay = Permission::whereIn('id', $userPermissionId)->pluck('display_name');
+
         if ($user) {
-            return view('backend.supervisors.show', compact('user'));
+            return view('backend.supervisors.show', compact('user', 'userPermissionDisplay'));
         }
         return redirect()->route('admin.supervisors.index')->with([
             'message' => 'Something was wrong',
