@@ -42,8 +42,8 @@
                     <td>{{ $user->roles()->first()->name }}</td>
                     <th>Permission: </th>
                     <td>
-                    @foreach($userPermissionDisplay as $per => $v)
-                        <span class="badge badge-pill badge-info">{{ $v }}</span>
+                    @foreach($user->permissions as $permission)
+                        <span class="badge badge-pill badge-info">{{ $permission->display_name }}</span>
                     @endforeach
                     </td>
                 </tr>
