@@ -1,6 +1,12 @@
 <?php
 
 use App\Models\Permission;
+use Spatie\Valuestore\Valuestore;
+
+function getSettingsOf($key) {
+    $settings = Valuestore::make(config_path('settings.json'));
+    return $settings->get($key);
+}
 
 function getParentShowOf($param)
 {

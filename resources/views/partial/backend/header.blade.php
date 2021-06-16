@@ -17,6 +17,13 @@
             </a>
         </li>
         @endif
+        @if(auth()->user()->ability('admin', 'manage_settings,show_settings'))
+        <li class="nav-item">
+            <a class="nav-link" href="{{ route('admin.settings.index') }}">
+                Settings
+            </a>
+        </li>
+        @endif
 
         <li class="nav-item dropdown no-arrow mx-1">
             <a class="nav-link dropdown-toggle" href="#" id="alertsDropdown" role="button"
