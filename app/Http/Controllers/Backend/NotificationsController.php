@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\Frontend;
+namespace App\Http\Controllers\Backend;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
@@ -21,7 +21,7 @@ class NotificationsController extends Controller
     {
         return auth()->user()->notifications->where('id', $request->id)->markAsRead();
     }
-
+/*
     public function markAsReadAndRedirect($id)
     {
         $noty = auth()->user()->notifications->where('id', $id)->first();
@@ -35,4 +35,5 @@ class NotificationsController extends Controller
             }
         }
     }
+*/
 }
