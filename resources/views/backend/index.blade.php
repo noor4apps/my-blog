@@ -10,8 +10,17 @@
 
     <!-- Content Row -->
     <livewire:backend.last-statistics />
-    
+
     <!-- Content Row -->
     <livewire:backend.last-post-comments />
 
+@endsection
+
+@section('script')
+    <!-- Page level plugins -->
+    <script src="{{ asset('backend/vendor/chart.js/Chart.min.js') }}"></script>
+
+    <!-- Page level custom scripts -->
+    <script src="{{ asset('backend/js/demo/chart-area-demo.js') }}"></script>
+    <script src="{{ asset('backend/js/demo/chart-pie-demo.js') }}"></script>
 @endsection
