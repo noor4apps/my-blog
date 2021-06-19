@@ -3,12 +3,19 @@
 namespace App\Http\Controllers\Backend\Api;
 
 use App\Http\Controllers\Controller;
-use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
+use App\Models\User;
+use App\Models\Post;
+use App\Models\Comment;
 
 class ApiController extends Controller
 {
     public function comments_chart()
     {
+        $posts = Post::select(DB::raw('COUNT(*) as count'), DB::raw('Month(created_at) as month'))
+            ->whereYear('created_at', date('Y'))
+            ->groupBy(DB::raw('Month(created_at)'))
+            ->pluck('count', 'month');
 
         $comments = Comment::select(DB::raw('COUNT(*) as count'), DB::raw('Month(created_at) as month'))
             ->whereYear('created_at', date('Y'))
@@ -22,6 +29,9 @@ class ApiController extends Controller
         $chart['labels'] = $labels;
         $chart['datasets'][0]['name'] = 'Comments';
         $chart['datasets'][0]['values'] = $comments->values()->toArray();
+
+        $chart['datasets'][1]['name'] = 'Posts';
+        $chart['datasets'][1]['values'] = $posts->values()->toArray();
 
         return response()->json($chart);
     }
@@ -41,4 +51,5 @@ class ApiController extends Controller
 
         return response()->json($chart);
     }
+
 }
