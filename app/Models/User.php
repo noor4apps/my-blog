@@ -52,6 +52,11 @@ class User extends Authenticatable implements MustVerifyEmail
         return 'App.User.' . $this->id;
     }
 
+    public function scopeActive($query)
+    {
+        return $query->where('status', 1);
+    }
+
     public function status()
     {
         return $this->status == 1 ? 'Active' : 'Inactive';

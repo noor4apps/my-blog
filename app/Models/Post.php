@@ -32,6 +32,10 @@ class Post extends Model
     {
         return $query->where('status', 1);
     }
+    public function scopeInactive($query)
+    {
+        return $query->where('status', 0);
+    }
 
     public function scopePost($query)
     {

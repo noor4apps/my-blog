@@ -20,6 +20,7 @@
     <link href="{{ asset('backend/vendor/bootstrap-fileinput/css/fileinput.min.css') }}" rel="stylesheet">
     <link href="{{ asset('backend/vendor/summernote/summernote-bs4.min.css') }}" rel="stylesheet">
     @yield('style')
+    @livewireStyles
 </head>
 <body id="page-top">
     <div id="app">
@@ -87,5 +88,7 @@
 
     <script src="{{ asset('backend/js/custome.js') }}"></script>
     @yield('script')
+    @livewireScripts
+    @stack('scripts')
 </body>
 </html>
