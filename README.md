@@ -63,28 +63,28 @@ Notify New Comment For Admin & Notify New Comment For Post Owner
 
 ### Server Side
 #### 1. (Laravel Websockets)
--[beyondcode/laravel-websockets](https://github.com/beyondcode/laravel-websockets)
+- [beyondcode/laravel-websockets](https://github.com/beyondcode/laravel-websockets)
 Laravel WebSockets is a package for Laravel 5.7 and up that will get your application started with WebSockets in no-time! It has a drop-in Pusher API replacement, has a debug dashboard, realtime statistics and even allows you to create custom WebSocket controllers.
 
 #### 2. (Pusher Channels)
--[pusher/pusher-php-server](https://github.com/pusher/pusher-http-php)
+- [pusher/pusher-php-server](https://github.com/pusher/pusher-http-php)
 PHP library for interacting with the Pusher Channels HTTP API
 
 ### Client Side
 #### 1. (Vuejs)
--[Vue.js](https://vuejs.org)
+- [Vue.js](https://vuejs.org)
  The Progressive JavaScript Framework.
  
 #### 2. (Axios)
--[axios/axios](https://github.com/axios/axios)
+- [axios/axios](https://github.com/axios/axios)
 Promise based HTTP client for the browser and node.js
 
 #### 3. (laravel-echo)
--[laravel/echo](https://github.com/laravel/echo)
+- [laravel/echo](https://github.com/laravel/echo)
 is a JavaScript library that makes it painless to subscribe to channels and listen for events broadcast by your server-side broadcasting driver.
  
 #### 4. (pusher-js)
--[pusher-js package](https://pusher.com/docs/channels/getting_started/javascript)
+- [pusher-js package](https://pusher.com/docs/channels/getting_started/javascript)
 using the Pusher Channels broadcaster you will have published an event to your web app using Channels
 
 ### To make the notification system work
