@@ -1,6 +1,14 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400"></a></p>
+# Multi User Content Management System
+The user can write and edit his own articles and control comments on his article, with a system of notifications to the user when there is a new comment on his article.
 
-## Packages
+With the ability to search in articles, main menu, latest added articles, latest comments, articles by classification, and articles by archive
+
+In addition to a control panel for each user and a control panel for managing the site with supervisors according to the permissions
+
+And the system of controlling the settings of the site and with a system of notifications for the administration
+And fixed pages and messages contact us
+
+## Packages:
 
 ###1. Zizaco/entrust
 - [Zizaco](https://github.com/Zizaco/entrust).
@@ -50,42 +58,47 @@ This package makes it easy to store and retrieve some loose values. Stored value
 - [Livewire](https://laravel-livewire.com/docs/2.x/installation)
 Livewire is a full-stack framework for Laravel that makes building dynamic interfaces simple, without leaving the comfort of Laravel.
 
-#Notifications System
+## Notifications System
 Notify New Comment For Admin & Notify New Comment For Post Owner
-##Server Side
-###1. (Laravel Websockets)
+
+### Server Side
+####1. (Laravel Websockets)
 -[beyondcode/laravel-websockets](https://github.com/beyondcode/laravel-websockets)
 Laravel WebSockets is a package for Laravel 5.7 and up that will get your application started with WebSockets in no-time! It has a drop-in Pusher API replacement, has a debug dashboard, realtime statistics and even allows you to create custom WebSocket controllers.
 
-###2. (Pusher Channels)
+####2. (Pusher Channels)
 -[pusher/pusher-php-server](https://github.com/pusher/pusher-http-php)
 PHP library for interacting with the Pusher Channels HTTP API
 
-##Client Side
-###1. (Vuejs)
+### Client Side
+####1. (Vuejs)
 -[Vue.js](https://vuejs.org)
  The Progressive JavaScript Framework.
-###2. (Axios)
+ 
+####2. (Axios)
 -[axios/axios](https://github.com/axios/axios)
 Promise based HTTP client for the browser and node.js
-###3. (laravel-echo)
+
+####3. (laravel-echo)
 -[laravel/echo](https://github.com/laravel/echo)
-is a JavaScript library that makes it painless to subscribe to channels and listen for events broadcast by your server-side broadcasting driver. 
-###4. (pusher-js)
+is a JavaScript library that makes it painless to subscribe to channels and listen for events broadcast by your server-side broadcasting driver.
+ 
+####4. (pusher-js)
 -[pusher-js package](https://pusher.com/docs/channels/getting_started/javascript)
 using the Pusher Channels broadcaster you will have published an event to your web app using Channels
-## Run Notifications
-$ php artisan websocket:serve
-$ php artisan queue:work
 
-##Avatar
+### To make the notification system work
+- $ php artisan websocket:serve
+- $ php artisan queue:work
+
+## Avatar
 An "avatar" is an image that represents you online—a little picture that appears next to your name when you interact with websites.
 
 ###Gravatar gravatar.com
 [gravatar.com](https://ar.gravatar.com/site/implement/images/php/)
 A Gravatar is a Globally Recognized Avatar. You upload an image and create your public profile just once, and then when you participate in any Gravatar-enabled site, your Gravatar image and public profile will automatically follow you there.
 
-##Vendors
+## Plugin jQuery (Vendors)
 
 ###summernote.org
 [Summernote](https://summernote.org/)
@@ -98,7 +111,8 @@ An enhanced HTML 5 file input for Bootstrap 5.x/4.x./3.x with file preview, mult
 ###select2/select2
 [Select2](https://github.com/select2/select2)
 is a jQuery based replacement for select boxes. It supports searching, remote data sets, and infinite scrolling of results.
-##Themes
+
+## Themes
 
 ###Frontend Theme
 - [Boighor – Free Books Library eCommerce Store](https://freethemescloud.com/item/boighor-free-books-library-ecommerce-store)
