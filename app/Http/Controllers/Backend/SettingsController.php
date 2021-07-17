@@ -33,6 +33,10 @@ class SettingsController extends Controller
 
     public function update(Request $request, $id)
     {
+        if (!\auth()->user()->ability('admin', 'update_settings')) {
+            return redirect('admin/index');
+        }
+
         for ($i = 0; $i < count($request->id); $i++) {
             $input['value'] = isset($request->value[$i]) ? $request->value[$i] : null;
             Setting::whereId($request->id[$i])->first()->update($input);
