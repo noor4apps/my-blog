@@ -5,6 +5,9 @@ use Illuminate\Support\Facades\Route;
 
 
 Route::get('/',                             ['as' => 'frontend.index',           'uses' => 'Frontend\IndexController@index']);
+Route::get('/tree', function () {
+    return \App\Models\Permission::tree();
+});
 
 
 // Frontend Authentication Routes... source (\\my-blog\vendor\laravel\ui\src\AuthRouteMethods.php)
