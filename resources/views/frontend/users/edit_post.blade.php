@@ -86,7 +86,7 @@
 
             $("#post-images").fileinput({
                 theme: "fa",
-                maxFileCount: 5,
+                maxFileCount: {{ 5 - $post->media->count() }},
                 allowedFileTypes: ['image'],
                 showCancel: true,
                 showRemove: false,
