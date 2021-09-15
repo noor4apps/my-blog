@@ -1,5 +1,7 @@
 <?php
 
+namespace Database\seeders;
+
 use App\Models\Category;
 use App\Models\Post;
 use App\Models\User;
@@ -11,7 +13,7 @@ use Illuminate\Support\Str;
 class PostsTableSeeder extends Seeder
 {
     /**
-     * Run the database seeds.
+     * Run the database seeders.
      *
      * @return void
      */

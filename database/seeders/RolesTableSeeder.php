@@ -1,5 +1,7 @@
 <?php
 
+namespace Database\seeders;
+
 use App\Models\Role;
 use App\Models\User;
 use Carbon\Carbon;
@@ -9,7 +11,7 @@ use Illuminate\Database\Seeder;
 class RolesTableSeeder extends Seeder
 {
     /**
-     * Run the database seeds.
+     * Run the database seeders.
      *
      * @return void
      */

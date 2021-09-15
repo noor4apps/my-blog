@@ -1,12 +1,14 @@
 <?php
 
+namespace Database\seeders;
+
 use App\Models\Category;
 use Illuminate\Database\Seeder;
 
 class CategoriesTableSeeder extends Seeder
 {
     /**
-     * Run the database seeds.
+     * Run the database seeders.
      *
      * @return void
      */
