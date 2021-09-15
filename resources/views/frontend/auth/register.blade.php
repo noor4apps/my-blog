@@ -26,7 +26,7 @@
                         </div>
                         <div class="input__box">
                             {{ Form::label('mobile', 'Mobile *') }}
-                            {{ Form::email('mobile', old('mobile')) }}
+                            {{ Form::text('mobile', old('mobile')) }}
                             @error('mobile')<span class="danger">{{ $message }}</span>@enderror
                         </div>
                         <div class="input__box">
