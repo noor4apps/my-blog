@@ -88,8 +88,13 @@ is a JavaScript library that makes it painless to subscribe to channels and list
 using the Pusher Channels broadcaster you will have published an event to your web app using Channels
 
 ### To make the notification system work
-- $ php artisan websocket:serve
-- $ php artisan queue:work
+```shell script
+php artisan websocket:serve
+```
+
+```shell script
+php artisan queue:work
+````
 
 ## Avatar
 An "avatar" is an image that represents you online—a little picture that appears next to your name when you interact with websites.

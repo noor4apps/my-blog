@@ -1,9 +1,10 @@
 <?php
 
-namespace Database\seeders;
+namespace Database\Seeders;
 
 use Illuminate\Database\Seeder;
 use App\Models\Permission;
+use Illuminate\Support\Facades\DB;
 
 class PermissionTableSeeder extends Seeder
 {
