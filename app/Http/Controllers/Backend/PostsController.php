@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Backend;
 use App\Http\Controllers\Controller;
 use App\Models\Category;
 use App\Models\PostMedia;
+use App\Models\Tag;
 use Illuminate\Http\Request;
 use App\Models\Post;
 use Illuminate\Support\Facades\Cache;
@@ -64,7 +65,9 @@ class PostsController extends Controller
 
         $categories = Category::orderBy('id', 'desc')->pluck('name', 'id');
 
-        return view('backend.posts.create', compact('categories'));
+        $tags = Tag::pluck('name', 'id');
+
+        return view('backend.posts.create', compact('categories', 'tags'));
     }
 
     public function store(Request $request)
@@ -80,7 +83,8 @@ class PostsController extends Controller
             'status' => 'required',
             'comment_able' => 'required',
             'category_id' => 'required',
-            'images.*' => 'nullable|mimes:jpg,jpeg,png,gif|max:20480'
+            'images.*' => 'nullable|mimes:jpg,jpeg,png,gif|max:20480',
+            'tags.*' => 'required',
         ]);
         if ($validation->fails()) {
             return redirect()->back()->withErrors($validation)->withInput();
@@ -113,9 +117,26 @@ class PostsController extends Controller
             }
         }
 
+        if($request->tags) {
+            $tags = [];
+            foreach ($request->tags as $tag)
+            {
+                $tag = Tag::firstOrCreate([
+                    'id' => $tag
+                ], [
+                    'name' => $tag
+                ]);
+                $tags[] = $tag->id;
+            }
+            $post->tags()->sync($tags);
+
+        }
+
         if($request->status == 1) {
             Cache::forget('recent_posts');
         }
+
+        Cache::forget('global_tags');
 
         return redirect()->route('admin.posts.index')->with([
             'message' => 'Post Created successfully',
@@ -143,9 +164,11 @@ class PostsController extends Controller
 
         $post = Post::with(['media'])->whereId($id)->post()->first();
 
+        $tags = Tag::pluck('name', 'id');
+
         $categories = Category::orderBy('id', 'desc')->pluck('name', 'id');
 
-        return view('backend.posts.edit', compact('post', 'categories'));
+        return view('backend.posts.edit', compact('post', 'categories', 'tags'));
     }
 
     public function update(Request $request, $id)
@@ -197,7 +220,24 @@ class PostsController extends Controller
                 }
             }
 
+            if($request->tags) {
+                $tags = [];
+                foreach ($request->tags as $tag)
+                {
+                    $tag = Tag::firstOrCreate([
+                        'id' => $tag
+                    ], [
+                        'name' => $tag
+                    ]);
+                    $tags[] = $tag->id;
+                }
+                $post->tags()->sync($tags);
+
+            }
+
             Cache::forget('recent_posts');
+
+            Cache::forget('global_tags');
 
 
             return redirect()->route('admin.posts.index')->with([

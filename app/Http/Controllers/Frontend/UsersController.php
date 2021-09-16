@@ -114,9 +114,11 @@ class UsersController extends Controller
     {
         $post = Post::whereSlug($post_id)->orWhere('id', $post_id)->whereUserId(auth()->id())->first();
 
+        $tags = Tag::pluck('name', 'id');
+
         if ($post) {
             $categories = Category::whereStatus(1)->pluck('name', 'id');
-            return view('frontend.users.edit_post', compact('post', 'categories'));
+            return view('frontend.users.edit_post', compact('post', 'categories', 'tags'));
         }
         return redirect()->route('frontend.dashboard');
     }
@@ -129,6 +131,7 @@ class UsersController extends Controller
             'status' => 'required',
             'comment_able' => 'required',
             'category_id' => 'required',
+            'tags.*' => 'required',
         ]);
         if ($validation->fails()) {
             return redirect()->back()->withErrors($validation)->withInput();
@@ -165,9 +168,26 @@ class UsersController extends Controller
                 }
             }
 
+            if($request->tags) {
+                $tags = [];
+                foreach ($request->tags as $tag)
+                {
+                    $tag = Tag::firstOrCreate([
+                        'id' => $tag
+                    ], [
+                        'name' => $tag
+                    ]);
+                    $tags[] = $tag->id;
+                }
+                $post->tags()->sync($tags);
+
+            }
+
             if($request->status == 1) {
                 Cache::forget('recent_posts');
             }
+
+            Cache::forget('global_tags');
 
             return redirect()->back()->with([
                 'message' => 'Post updated successfully.',

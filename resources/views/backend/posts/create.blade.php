@@ -4,6 +4,8 @@
     <link rel="stylesheet" href="{{ asset('backend/vendors/editor/summernote-bs4.min.css') }}">
 
     <link rel="stylesheet" href="{{ asset('backend/vendors/bootstrap-fileinput/css/fileinput.min.css') }}">
+
+    <link rel="stylesheet" href="{{ asset('backend/vendors/select2/css/select2.min.css') }}">
 @endsection
 
 @section('content')
@@ -36,6 +38,18 @@
                         {{ Form::label('description', 'Description') }}
                         {{ Form::textarea('description', old('description'), ['class' => 'form-control summernote']) }}
                         @error('description')<span class="text-danger">{{ $message }}</span>@enderror
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-12">
+                    <div class="form-group">
+                        {{ Form::label('tags', 'Tags') }}
+                        <button type="button" class="btn btn-primary btn-xs" id="select_btn_tag">Select All</button>
+                        <button type="button" class="btn btn-primary btn-xs" id="deselect_btn_tag">Deselect All</button>
+                        {{ Form::select('tags[]', $tags->toArray(), old('tags'), ['class' => 'form-control selects', 'multiple' => 'multiple', 'id' => 'select_all_tags']) }}
+                        @error('tags')<span class="text-danger">{{ $message }}</span>@enderror
                     </div>
                 </div>
             </div>
@@ -87,6 +101,8 @@
     <script src="{{ asset('backend/vendors/bootstrap-fileinput/js/fileinput.min.js') }}"></script>
     <script src="{{ asset('backend/vendors/bootstrap-fileinput/themes/fas/theme.js') }}"></script>
 
+    <script src="{{ asset('backend/vendors/select2/js/select2.full.js') }}"></script>
+
     <script>
         $(document).ready(function() {
             $('.summernote').summernote({
@@ -111,6 +127,19 @@
                 showRemove: false,
                 showUpload: false,
                 overwriteInitial: false
+            });
+
+            $('.selects').select2({
+                tags:true,
+                minimumResultsForSearch: Infinity
+            });
+            $('#select_btn_tag').click(function () {
+                $('#select_all_tags > option').prop("selected", "selected");
+                $('#select_all_tags').trigger('change');
+            });
+            $('#deselect_btn_tag').click(function () {
+                $('#select_all_tags > option').prop("selected", '');
+                $('#select_all_tags').trigger('change');
             });
         });
     </script>
