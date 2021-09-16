@@ -22,6 +22,7 @@
                         <th>Comments</th>
                         <th>Status</th>
                         <th>Category</th>
+                        <th>Tag</th>
                         <th>User</th>
                         <th>Created at</th>
                         <th class="text-center" style="width: 30px;">Actions</th>
@@ -38,6 +39,11 @@
                         <td>{!!  $post->comment_able == 1 ? '<a href="'.route('admin.post_comments.index', ['post_id'=>$post->id]).'">' . $post->comments->count() . '</a>' : 'Disallow'  !!}</td>
                         <td>{{ $post->status() }}</td>
                         <td><a href="{{ route('admin.posts.index', ['category_id'=>$post->category_id]) }}">{{ $post->category->name }}</a></td>
+                        <td class="border" style="width: 10px">
+                        @foreach($post->tags as $tag)
+                                <a href="{{ route('admin.posts.index', ['tag_id'=>$tag->tag_id]) }}">{{ $tag->name }}</a>
+                        @endforeach
+                        </td>
                         <td>{{ $post->user->username }}</td>
                         <td>{{ $post->created_at->format('Y m d h:i a') }}</td>
                         <td>

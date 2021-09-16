@@ -33,18 +33,24 @@ class PostsController extends Controller
 
         $keyword = (isset(\request()->keyword) && \request()->keyword != '') ? \request()->keyword : null;
         $categoryId = (isset(\request()->category_id) && \request()->category_id != '') ? \request()->category_id : null;
+        $tagId = (isset(\request()->tag_id) && \request()->tag_id != '') ? \request()->tag_id : null;
         $status = (isset(\request()->status) && \request()->status != '') ? \request()->status : null;
         $sort_by = (isset(\request()->sort_by) && \request()->sort_by != '') ? \request()->sort_by : 'id';
         $order_by = (isset(\request()->order_by) && \request()->order_by != '') ? \request()->order_by : 'desc';
         $limit_by = (isset(\request()->limit_by) && \request()->limit_by != '') ? \request()->limit_by : '10';
 
-        $posts = Post::with(['user', 'category', 'comments'])->wherePostType('post');
+        $posts = Post::with(['user', 'category', 'comments', 'tags'])->wherePostType('post');
 
         if ($keyword != null) {
             $posts = $posts->search($keyword);
         }
         if ($categoryId != null) {
             $posts = $posts->whereCategoryId($categoryId);
+        }
+        if ($tagId != null) {
+            $posts = $posts->whereHas('tags', function ($query) use ($tagId) {
+                $query->where('id', $tagId);
+            });
         }
         if ($status != null) {
             $posts = $posts->whereStatus($status);
@@ -54,7 +60,9 @@ class PostsController extends Controller
 
         $categories = Category::orderBy('id', 'desc')->pluck('name', 'id');
 
-        return view('backend.posts.index', compact('posts', 'categories'));
+        $tags = Tag::orderBy('id', 'desc')->pluck('name', 'id');
+
+        return view('backend.posts.index', compact('posts', 'categories', 'tags'));
     }
 
     public function create()

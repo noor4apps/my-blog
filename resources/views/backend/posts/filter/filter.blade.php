@@ -13,6 +13,11 @@
             </div>
             <div class="col-2">
                 <div class="form-group">
+                    {{ Form::select('tag_id', ['' => '---'] + $tags->toArray(), old('tags', request()->input('tag_id')), ['class' => 'form-control']) }}
+                </div>
+            </div>
+            <div class="col-1">
+                <div class="form-group">
                     {{ Form::select('status', ['' => '---', '1' => 'Active', '0' => 'Inactive'], old('status', request()->input('status')), ['class' => 'form-control']) }}
                 </div>
             </div>
@@ -21,7 +26,7 @@
                     {{ Form::select('sort_by', ['' => '---', 'title' => 'Title', 'created_at' => 'Created At'], old('sort_by', request()->input('sort_by')), ['class' => 'form-control']) }}
                 </div>
             </div>
-            <div class="col-2">
+            <div class="col-1">
                 <div class="form-group">
                     {{ Form::select('order_by', ['' => '---', 'asc' => 'Acending', 'desc' => 'Descending'], old('order_by', request()->input('order_by')), ['class' => 'form-control']) }}
                 </div>

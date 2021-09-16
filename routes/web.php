@@ -15,6 +15,7 @@ use App\Http\Controllers\Backend\AdminController;
 use App\Http\Controllers\Backend\PostsController;
 use App\Http\Controllers\Backend\PagesController;
 use App\Http\Controllers\Backend\PostCategorisController;
+use App\Http\Controllers\Backend\PostTagsController;
 use App\Http\Controllers\Backend\PostCommentsController;
 use App\Http\Controllers\Backend\ContactUsController;
 use App\Http\Controllers\Backend\SettingsController;
@@ -104,6 +105,7 @@ Route::group(['prefix' => 'admin'], function () {
 
         Route::resource('post_comments',    PostCommentsController::class);
         Route::resource('post_categories',  PostCategorisController::class);
+        Route::resource('post_tags',        PostTagsController::class);
 
         Route::resource('contact_us',           ContactUsController::class);
 
