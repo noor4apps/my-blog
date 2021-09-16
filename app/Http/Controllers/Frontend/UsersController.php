@@ -7,6 +7,7 @@ use App\Models\Category;
 use App\Models\Comment;
 use App\Models\Post;
 use App\Models\PostMedia;
+use App\Models\Tag;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\File;
@@ -35,7 +36,9 @@ class UsersController extends Controller
     {
         $categories = Category::whereStatus(1)->pluck('name', 'id');
 
-        return view('frontend.users.create_post', compact('categories'));
+        $tags = Tag::pluck('name', 'id');
+
+        return view('frontend.users.create_post', compact('categories', 'tags'));
     }
 
     public function store_post(Request $request)
@@ -46,6 +49,7 @@ class UsersController extends Controller
             'status' => 'required',
             'comment_able' => 'required',
             'category_id' => 'required',
+            'tags.*' => 'required',
         ]);
         if ($validation->fails()) {
             return redirect()->back()->withErrors($validation)->withInput();
@@ -78,9 +82,26 @@ class UsersController extends Controller
             }
         }
 
+        if($request->tags) {
+            $tags = [];
+            foreach ($request->tags as $tag)
+            {
+                $tag = Tag::firstOrCreate([
+                    'id' => $tag
+                ], [
+                    'name' => $tag
+                ]);
+                $tags[] = $tag->id;
+            }
+            $post->tags()->sync($tags);
+
+        }
+
         if($request->status == 1) {
             Cache::forget('recent_posts');
         }
+
+        Cache::forget('global_tags');
 
         return redirect()->back()->with([
             'message' => 'Post Created successfully',
