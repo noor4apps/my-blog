@@ -121,6 +121,7 @@ Route::get('/contact-us',                        [IndexController::class, 'conta
 Route::post('/contact-us',                       [IndexController::class, 'do_contact'])->name('frontend.do_contact');
 
 Route::get('/category/{category_slug}',          [IndexController::class, 'category'])->name('frontend.category.posts');
+Route::get('/tag/{tag_slug}',                    [IndexController::class, 'tag'])->name('frontend.tag.posts');
 Route::get('/archive/{date}',                    [IndexController::class, 'archive'])->name('frontend.archive.posts');
 Route::get('/authour/{username}',                [IndexController::class, 'authour'])->name('frontend.authour.posts');
 

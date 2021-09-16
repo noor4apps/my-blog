@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Category;
 use App\Models\Contact;
 use App\Models\Post;
+use App\Models\Tag;
 use App\Models\User;
 use App\Notifications\NewCommentForAdminNotify;
 use App\Notifications\NewCommentForPostOwnerNotify;
@@ -17,7 +18,7 @@ class IndexController extends Controller
 {
     public function index()
     {
-        $posts = Post::with(['media', 'user'])
+        $posts = Post::with(['media', 'user', 'tags'])
             ->whereHas('category', function ($query) {
                 $query->whereStatus(1);
             })
@@ -34,7 +35,7 @@ class IndexController extends Controller
     {
         $keyword = isset($request->keyword) && $request->keyword != '' ? $request->keyword : null;
 
-        $posts = Post::with(['media', 'user'])
+        $posts = Post::with(['media', 'user', 'tags'])
             ->whereHas('category', function ($query) {
                 $query->whereStatus(1);
             })
@@ -56,7 +57,7 @@ class IndexController extends Controller
         $category = Category::whereSlug($slug)->orWhere('id', $slug)->whereStatus(1)->firstOrFail()->id;
 
         if($category) {
-            $posts = Post::with(['media', 'user'])
+            $posts = Post::with(['media', 'user', 'tags'])
                 ->whereHas('category', function ($query) {
                     $query->whereStatus(1);
                 })
@@ -73,13 +74,31 @@ class IndexController extends Controller
         return redirect()->route('frontend.index');
     }
 
+    public function tag($slug)
+    {
+        $tag = Tag::whereSlug($slug)->orWhere('id', $slug)->firstOrFail()->id;
+
+        if($tag) {
+            $posts = Post::with(['media', 'user', 'tags'])
+                ->whereHas('tags', function ($query) use ($slug) {
+                    $query->where('slug', $slug);
+                })
+                ->post()->active()
+                ->orderBy('id', 'desc')->paginate(5);
+
+            return view('frontend.index', compact('posts'));
+        }
+
+        return redirect()->route('frontend.index');
+    }
+
     public function archive($date)
     {
         $exploded_date = explode('-', $date);
         $month = $exploded_date[0];
         $year = $exploded_date[1];
 
-        $posts = Post::with(['media', 'user'])
+        $posts = Post::with(['media', 'user', 'tags'])
             ->whereHas('category', function ($query) {
                 $query->whereStatus(1);
             })
@@ -100,7 +119,7 @@ class IndexController extends Controller
         $user = User::whereUsername($username)->whereStatus(1)->firstOrFail()->id;
 
         if($user) {
-            $posts = Post::with(['media', 'user'])
+            $posts = Post::with(['media', 'user', 'tags'])
                 ->whereHas('category', function ($query) {
                     $query->whereStatus(1);
                 })
@@ -116,7 +135,7 @@ class IndexController extends Controller
 
     public function post_show($slug)
     {
-        $post = Post::with(['category', 'media', 'user',
+        $post = Post::with(['category', 'media', 'user', 'tags',
             'approved_comments' => function($query) {
                 $query->orderBy('created_at', 'desc');
             }

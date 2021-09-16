@@ -68,6 +68,18 @@
         </ul>
     </aside>
     <!-- End Single Widget -->
+
+    <!-- Start Single Widget -->
+    <aside class="widget category_widget">
+        <h3 class="widget-title">Tags</h3>
+        <ul>
+            @foreach($global_tags as $global_tag)
+                <li><a href="{{ route('frontend.tag.posts', $global_tag->slug) }}">{{ $global_tag->name }} ({{ $global_tag->posts_count }})</a></li>
+            @endforeach
+        </ul>
+    </aside>
+    <!-- End Single Widget -->
+
     <!-- Start Single Widget -->
     <aside class="widget archives_widget">
         <h3 class="widget-title">Archives</h3>

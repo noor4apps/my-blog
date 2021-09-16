@@ -45,6 +45,14 @@
                     <div class="post_content">
                         <p>{!! $post->description !!}</p>
                     </div>
+                    @if($post->tags->count() > 0)
+                        <div>
+                            <span>Tags :</span>
+                            @foreach($post->tags as $tag)
+                                <a class="badge badge-info p-1" href="{{ route('frontend.tag.posts', $tag->slug) }}"><span class="text-white">{{ $tag->name }}</span></a>
+                            @endforeach
+                        </div>
+                    @endif
                     <ul class="blog_meta">
                         <li><a href="#">{{ $post->approved_comments->count() }} comment(s)</a></li>
                         <li> / </li>
