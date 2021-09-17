@@ -2,9 +2,11 @@
 
 namespace App\Http\Resources\General;
 
+use Database\Seeders\TagsTableSeeder;
 use Illuminate\Http\Resources\Json\JsonResource;
+use phpDocumentor\Reflection\Types\This;
 
-class PostResource extends JsonResource
+class PostsResource extends JsonResource
 {
     /**
      * Transform the resource into an array.
@@ -28,7 +30,6 @@ class PostResource extends JsonResource
             'tags'          => TagsResource::collection($this->tags),
             'media'         => PostsMediaResource::collection($this->media),
             'comment_count' => $this->comments->where('status', 1)->count(),
-            'comments'      => PostCommentsResource::collection($this->approved_comments),
         ];
     }
 }

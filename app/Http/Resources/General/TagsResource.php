@@ -17,7 +17,8 @@ class TagsResource extends JsonResource
         return [
             'name'      => $this->name,
             'slug'      => $this->slug,
-            'url'       => route('frontend.tag.posts', $this->slug)
+            'url'       => route('frontend.tag.posts', $this->slug),
+            'posts_count' => $this->posts->count(),
         ];
     }
 }
