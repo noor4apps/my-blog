@@ -62,6 +62,11 @@ class User extends Authenticatable implements MustVerifyEmail
         return $this->status == 1 ? 'Active' : 'Inactive';
     }
 
+    public function user_image()
+    {
+        return $this->user_image != '' ? asset('assets/users/' . $this->user_image) : asset('assets/users/default.png');
+    }
+
     public function posts()
     {
         return $this->hasMany(Post::class);
