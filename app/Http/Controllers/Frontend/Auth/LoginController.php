@@ -70,6 +70,16 @@ class LoginController extends Controller
     protected function authenticated(Request $request, $user)
     {
         if ($user->status == 1) {
+
+            if($request->wantsJson()) {
+                $token = $user->createToken('accessToken')->accessToken;
+                return response()->json([
+                    'error' => false,
+                    'message' => 'Logged in successfully.',
+                    'token' => $token
+                ]);
+            }
+
             return redirect()->route('frontend.dashboard')->with([
                 'message' => 'Logged in successfully.',
                 'alert-type' => 'success'
@@ -81,6 +91,13 @@ class LoginController extends Controller
         $request->session()->invalidate();
 
         $request->session()->regenerateToken();
+
+        if($request->wantsJson()) {
+            return response()->json([
+                'error' => false,
+                'message' => 'Please contact Administrator.',
+            ]);
+        }
 
         return redirect()->route('frontend.index')->with([
             'message' => 'Please contact Administrator.',
