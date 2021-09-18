@@ -70,4 +70,28 @@ class AuthController extends Controller
         return response()->json($response->json(), 200);
     }
 
+    public function refresh_token(Request $request)
+    {
+        try {
+            $refresh_token = $request->header('RefreshTokenCode');
+
+            $verifyValue = app()->environment() == 'local' ? false : true;
+
+            $response = Http::withOptions([
+                'verify' => $verifyValue,
+            ])->post(config('app.url') . '/oauth/token', [
+                'grant_type' => 'refresh_token',
+                'refresh_token' => $refresh_token,
+                'client_id' => config('passport.personal_access_client.id'),
+                'client_secret' => config('passport.personal_access_client.secret'),
+                'scope' => '*',
+            ]);
+
+            return response()->json($response->json(), 200);
+        } catch (\Exception $e) {
+            return response()->json('Unauthorized', 200);
+        }
+
+    }
+
 }
