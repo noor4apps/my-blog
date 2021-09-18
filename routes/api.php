@@ -29,7 +29,11 @@ Route::group(['middleware' => ['auth:api']], function() {
     Route::get('my-posts',              [UsersController::class, 'my_posts']);
 
     Route::get('my-posts/create',       [UsersController::class, 'create_post']);
-
     Route::post('my-posts/create',      [UsersController::class, 'store_post']);
+
+    Route::get('my-posts/{post}/edit',        [UsersController::class, 'edit_post']);
+    Route::patch('my-posts/{post}/edit',      [UsersController::class, 'update_post']);
+
+    Route::delete('my-posts/{post}',          [UsersController::class, 'destroy_post']);
 
 });
