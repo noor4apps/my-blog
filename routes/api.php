@@ -26,4 +26,10 @@ Route::group(['middleware' => ['auth:api']], function() {
 
     Route::get('user-information',      [UsersController::class, 'user_information']);
 
+    Route::get('my-posts',              [UsersController::class, 'my_posts']);
+
+    Route::get('my-posts/create',       [UsersController::class, 'create_post']);
+
+    Route::post('my-posts/create',      [UsersController::class, 'store_post']);
+
 });
