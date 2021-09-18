@@ -35,5 +35,10 @@ Route::group(['middleware' => ['auth:api']], function() {
     Route::patch('my-posts/{post}/edit',      [UsersController::class, 'update_post']);
 
     Route::delete('my-posts/{post}',          [UsersController::class, 'destroy_post']);
+    Route::delete('destroy-post-media/{id}',  [UsersController::class, 'destroy_post_media']);
+
+    Route::get('all-comments',                 [UsersController::class, 'all_comments']);
+    Route::get('comments/{id}/edit',           [UsersController::class, 'edit_comment']);
+    Route::patch('comments/{id}/edit',         [UsersController::class, 'update_comment']);
 
 });

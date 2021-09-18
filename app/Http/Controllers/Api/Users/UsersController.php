@@ -5,10 +5,12 @@ namespace App\Http\Controllers\Api\Users;
 use App\Http\Controllers\Controller;
 use App\Http\Resources\Users\UserResource;
 use App\Http\Resources\Users\UsersCategoriesResource;
+use App\Http\Resources\Users\UsersPostCommentsResource;
 use App\Http\Resources\Users\UsersPostResource;
 use App\Http\Resources\Users\UsersPostsResource;
 use App\Http\Resources\Users\UsersTagsResource;
 use App\Models\Category;
+use App\Models\Comment;
 use App\Models\Post;
 use App\Models\Tag;
 use Illuminate\Http\Request;
@@ -222,4 +224,86 @@ class UsersController extends Controller
         }
         return response()->json(['errors' => true, 'message' => 'Something was wrong'], 200);
     }
+
+    public function destroy_post_media($media_id)
+    {
+        $media = PostMedia::whereId($media_id)->first();
+        if ($media) {
+            if (File::exists('assets/posts/' . $media->file_name)) {
+                unlink('assets/posts/' . $media->file_name);
+            }
+            $media->delete();
+            return response()->json(['errors' => false, 'message' => 'Media deleted successfully'], 200);
+        }
+        return response()->json(['errors' => true, 'message' => 'Something was wrong'], 200);
+    }
+
+    //
+
+    public function all_comments(Request $request)
+    {
+        $comments = Comment::query();
+
+        if (isset($request->post) && $request->post != '') {
+            $comments = $comments->wherePostId($request->post);
+        } else {
+            $posts_id = auth()->user()->posts->pluck('id')->toArray();
+            $comments = $comments->whereIn('post_id', $posts_id);
+        }
+        $comments = $comments->orderBy('id', 'desc');
+        $comments = $comments->get();
+
+        return UsersPostCommentsResource::collection($comments);
+    }
+
+    public function edit_comment($id)
+    {
+        $comment = Comment::whereId($id)->whereHas('post', function ($query) {
+            $query->where('posts.user_id', auth()->id());
+        })->first();
+
+        if ($comment) {
+            return response()->json(['errors' => false, 'message' => new UsersPostCommentsResource($comment)], 200);
+        } else {
+            return response()->json(['errors' => true, 'message' => 'Something was wrong'], 200);
+        }
+    }
+
+    public function update_comment(Request $request, $id)
+    {
+        $validator = Validator::make($request->all(), [
+            'name'          => 'required',
+            'email'         => 'required|email',
+            'url'           => 'nullable|url',
+            'status'        => 'required',
+            'comment'       => 'required',
+        ]);
+        if($validator->fails()) {
+            return response()->json(['errors' => true, 'message' => $validator->errors()], 200);
+        }
+
+        $comment = Comment::whereId($id)->whereHas('post', function ($query) {
+            $query->where('posts.user_id', auth()->id());
+        })->first();
+
+        if ($comment) {
+            $data['name']          = $request->name;
+            $data['email']         = $request->email;
+            $data['url']           = $request->url != '' ? $request->url : null;
+            $data['status']        = $request->status;
+            $data['comment']       = Purify::clean($request->comment);
+
+            $comment->update($data);
+
+            if ($request->status == 1) {
+                Cache::forget('recent_comments');
+            }
+
+            return response()->json(['errors' => false, 'message' => 'Comment updated successfully'], 200);
+
+        } else {
+            return response()->json(['errors' => true, 'message' => 'Something was wrong'], 200);
+        }
+    }
+
 }
