@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Resources\General\PostsResource;
 use App\Http\Resources\General\PostResource;
 use App\Models\Category;
+use App\Models\Contact;
 use App\Models\Post;
 use App\Models\Tag;
 use App\Models\User;
@@ -219,6 +220,31 @@ class GeneralController extends Controller
         }
 
         return response()->json(['error' => true, 'message'=> 'Something was wrong'], 201);
+    }
+
+    public function do_contact(Request $request)
+    {
+        $validation = Validator::make($request->all(), [
+            'name'      => 'required',
+            'email'     => 'required|email',
+            'mobile'    => 'nullable|numeric',
+            'title'     => 'required|min:5',
+            'message'   => 'required|min:10',
+        ]);
+        if ($validation->fails()){
+            return response()->json(['errors' => true, 'message' => $validation->errors()], 200);
+        }
+
+        $data['name']       = $request->name;
+        $data['email']      = $request->email;
+        $data['mobile']     = $request->mobile;
+        $data['title']      = $request->title;
+        $data['message']    = $request->message;
+
+        Contact::create($data);
+
+        return response()->json(['errors' => false, 'message' => 'Message sent successfully'], 200);
+
     }
 
 }

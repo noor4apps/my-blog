@@ -24,6 +24,8 @@ Route::get('tag/{tag_slug}',            [GeneralController::class, 'tag']);
 Route::get('archive/{date}',            [GeneralController::class, 'archive']);
 Route::get('author/{username}',         [GeneralController::class, 'author']);
 
+Route::post('contact-us',               [GeneralController::class, 'do_contact']);
+
 Route::post('register',                 [AuthController::class, 'register']);
 Route::post('login',                    [AuthController::class, 'login']);
 Route::post('refresh-token',            [AuthController::class, 'refresh_token']);
