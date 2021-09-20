@@ -25,6 +25,8 @@ Route::group(['middleware' => ['auth:api']], function() {
     Route::post('logout',               [UsersController::class, 'logout']);
 
     Route::get('user-information',      [UsersController::class, 'user_information']);
+    Route::patch('update-user-information',[UsersController::class, 'update_user_information']);
+    Route::patch('update-user-password',   [UsersController::class, 'update_user_password']);
 
     Route::get('my-posts',              [UsersController::class, 'my_posts']);
 
@@ -40,5 +42,6 @@ Route::group(['middleware' => ['auth:api']], function() {
     Route::get('all-comments',                 [UsersController::class, 'all_comments']);
     Route::get('comments/{id}/edit',           [UsersController::class, 'edit_comment']);
     Route::patch('comments/{id}/edit',         [UsersController::class, 'update_comment']);
+    Route::delete('comments/{id}',             [UsersController::class, 'destroy_comment']);
 
 });

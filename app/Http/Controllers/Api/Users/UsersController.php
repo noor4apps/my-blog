@@ -20,6 +20,8 @@ use Illuminate\Support\Facades\Validator;
 use Intervention\Image\Facades\Image;
 use Illuminate\Support\Facades\File;
 use Stevebauman\Purify\Facades\Purify;
+use Illuminate\Support\Str;
+use Illuminate\Support\Facades\Hash;
 
 class UsersController extends Controller
 {
@@ -34,11 +36,87 @@ class UsersController extends Controller
         return response()->json(['errors' => false, 'message' => 'Successfully logged out']);
     }
 
+    //
+
     public function user_information()
     {
         $user = \auth()->user();
-        return response()->json(['errors' => false, 'message' => $user], 200);
+        return response()->json(['errors' => false, 'message' => new UserResource($user)], 200);
     }
+
+    public function update_user_information(Request $request)
+    {
+        $validator = Validator::make($request->all(), [
+            'name'          => 'required',
+            'email'         => 'required|email',
+            'mobile'        => 'required|numeric',
+            'bio'           => 'nullable|min:10',
+            'receive_email' => 'required',
+            'user_image'    => 'nullable|image|max:20000,mimes:jpeg,jpg,png'
+        ]);
+        if($validator->fails()) {
+            return response()->json(['errors' => true, 'message' => $validator->errors()], 200);
+        }
+
+        $data['name']           = $request->name;
+        $data['email']          = $request->email;
+        $data['mobile']         = $request->mobile;
+        $data['bio']            = $request->bio;
+        $data['receive_email']  = $request->receive_email;
+
+        if ($image = $request->file('user_image')) {
+            if (auth()->user()->user_image != ''){
+                if (File::exists('/assets/users/' . auth()->user()->user_image)){
+                    unlink('/assets/users/' . auth()->user()->user_image);
+                }
+            }
+            $filename = Str::slug(auth()->user()->username).'.'.$image->getClientOriginalExtension();
+            $path = public_path('assets/users/' . $filename);
+            Image::make($image->getRealPath())->resize(300, 300, function ($constraint) {
+                $constraint->aspectRatio();
+            })->save($path, 100);
+
+            $data['user_image'] = $filename;
+        }
+
+        $update = auth()->user()->update($data);
+
+        if ($update) {
+            return response()->json(['errors' => false, 'message' => 'Information updated successfully'], 200);
+
+        } else {
+            return response()->json(['errors' => true, 'message' => 'Something was wrong'], 200);
+        }
+    }
+
+    public function update_user_password(Request $request)
+    {
+        $validator = Validator::make($request->all(), [
+            'current_password'  => 'required',
+            'password'          => 'required|confirmed'
+        ]);
+        if($validator->fails()) {
+            return response()->json(['errors' => true, 'message' => $validator->errors()], 200);
+        }
+
+        $user = auth()->user();
+        if (Hash::check($request->current_password, $user->password)) {
+            $update = $user->update([
+                'password' => bcrypt($request->password),
+            ]);
+
+            if ($update) {
+                return response()->json(['errors' => false, 'message' => 'Password updated successfully'], 200);
+            } else {
+                return response()->json(['errors' => true, 'message' => 'Something was wrong'], 200);
+            }
+
+        } else {
+            return response()->json(['errors' => true, 'message' => 'Something was wrong'], 200);
+        }
+    }
+
+    //
 
     public function my_posts()
     {
@@ -46,6 +124,8 @@ class UsersController extends Controller
         $posts = $user->posts;
         return UsersPostsResource::collection($posts);
     }
+
+    //
 
     public function create_post()
     {
@@ -303,6 +383,25 @@ class UsersController extends Controller
 
         } else {
             return response()->json(['errors' => true, 'message' => 'Something was wrong'], 200);
+        }
+    }
+
+    public function destroy_comment($id)
+    {
+        $comment = Comment::whereId($id)->whereHas('post', function ($query) {
+            $query->where('posts.user_id', auth()->id());
+        })->first();
+
+        if ($comment) {
+
+            $comment->delete();
+
+            Cache::forget('recent_comments');
+
+            return response()->json(['error' => false, 'message' => 'Comment deleted successfully.'], 200);
+
+        } else {
+            return response()->json(['error' => true, 'message' => 'Something was wrong.']);
         }
     }
 
