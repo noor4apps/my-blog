@@ -1,12 +1,17 @@
 # Multi User Content Management System
 The user can write and edit his own articles and control comments on his article, with a system of notifications to the user when there is a new comment on his article.
 
-With the ability to search in articles, main menu, latest added articles, latest comments, articles by classification, and articles by archive
+With the ability to search in articles, main menu, latest added articles, latest comments, articles by a category, tags, and articles by archive
 
 In addition to a control panel for each user and a control panel for managing the site with supervisors according to the permissions
 
 And the system of controlling the settings of the site and with a system of notifications for the administration
 And fixed pages and messages contact us
+
+## API documentation:
+```http request
+https://documenter.getpostman.com/view/17453126/UUxtGBMV
+```
 
 ## Packages:
 
