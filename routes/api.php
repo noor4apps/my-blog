@@ -16,6 +16,12 @@ Route::get('/chart/users_chart',        [ApiController::class, 'users_chart']);
 Route::get('get-posts',                 [GeneralController::class, 'get_posts']);
 Route::get('post/{slug}',               [GeneralController::class, 'show_post']);
 
+Route::get('search',                    [GeneralController::class, 'search']);
+Route::get('category/{category_slug}',  [GeneralController::class, 'category']);
+Route::get('tag/{tag_slug}',            [GeneralController::class, 'tag']);
+Route::get('archive/{date}',            [GeneralController::class, 'archive']);
+Route::get('author/{username}',         [GeneralController::class, 'author']);
+
 Route::post('register',                 [AuthController::class, 'register']);
 Route::post('login',                    [AuthController::class, 'login']);
 Route::post('refresh-token',            [AuthController::class, 'refresh_token']);
