@@ -38,6 +38,21 @@ class UsersController extends Controller
 
     //
 
+    public function getNotifications()
+    {
+        return [
+            'read'      => auth()->user()->readNotifications,
+            'unread'    => auth()->user()->unreadNotifications,
+        ];
+    }
+
+    public function markAsRead(Request $request)
+    {
+        return auth()->user()->notifications->where('id', $request->id)->markAsRead();
+    }
+
+    //
+
     public function user_information()
     {
         $user = \auth()->user();

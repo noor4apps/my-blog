@@ -16,6 +16,8 @@ Route::get('/chart/users_chart',        [ApiController::class, 'users_chart']);
 Route::get('get-posts',                 [GeneralController::class, 'get_posts']);
 Route::get('post/{slug}',               [GeneralController::class, 'show_post']);
 
+Route::post('post/{slug}',               [GeneralController::class, 'store_comment']);
+
 Route::get('search',                    [GeneralController::class, 'search']);
 Route::get('category/{category_slug}',  [GeneralController::class, 'category']);
 Route::get('tag/{tag_slug}',            [GeneralController::class, 'tag']);
@@ -29,6 +31,9 @@ Route::post('refresh-token',            [AuthController::class, 'refresh_token']
 Route::group(['middleware' => ['auth:api']], function() {
 
     Route::post('logout',               [UsersController::class, 'logout']);
+
+    Route::any('notifications/get',      [UsersController::class, 'getNotifications']);
+    Route::any('notifications/read',     [UsersController::class, 'markAsRead']);
 
     Route::get('user-information',      [UsersController::class, 'user_information']);
     Route::patch('update-user-information',[UsersController::class, 'update_user_information']);
